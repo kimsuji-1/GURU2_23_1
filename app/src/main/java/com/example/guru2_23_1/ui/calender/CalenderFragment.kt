@@ -28,7 +28,6 @@ class CalenderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val root: View = inflater.inflate(R.layout.fragment_calender, container, false)
-        val textView: TextView = root.findViewById(R.id.text_calender)
         return root
     }
 
