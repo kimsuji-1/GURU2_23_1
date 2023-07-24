@@ -1,6 +1,8 @@
 package com.example.guru2_23_1.ui.model
 
-class Memo (id:Int, title:String, memo:String, datetime: Int){
+import java.io.Serializable
+
+class Memo (id:Int, title:String, memo:String, datetime: Int) : Serializable {
 
     val id = id;
     val title = title

@@ -3,8 +3,10 @@ package com.example.guru2_23_1.ui.DB
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import com.example.guru2_23_1.ui.model.Memo
+import java.util.Calendar
 import java.util.Date
 
 class DBLoader(context: Context) {
@@ -17,14 +19,16 @@ class DBLoader(context: Context) {
     }
 
     fun save(title: String, memo:String){
-        val date = Date()
+        val calendar = Calendar.getInstance()
+        Log.d("hhh", calendar.get(Calendar.YEAR).toString())
+        Log.d("hhh", calendar.timeInMillis.toString())
         val contentValues = ContentValues()
         contentValues.put("title", title)
         contentValues.put("memo", memo)
-        contentValues.put("datetime", date.time)
+        contentValues.put("datetime", calendar.timeInMillis)
 
-        db.writableDatabase.insert("note", null, contentValues)
-        db.close()
+//        db.writableDatabase.insert("note", null, contentValues)
+//        db.close()
         Toast.makeText(context, "저장됨", Toast.LENGTH_SHORT).show()
 
     }

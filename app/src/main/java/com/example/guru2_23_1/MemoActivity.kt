@@ -4,20 +4,30 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.guru2_23_1.ui.DB.DBLoader
+import com.example.guru2_23_1.ui.model.Memo
 
 class MemoActivity : AppCompatActivity(){
     private lateinit var edit_title: EditText
     private lateinit var edit_memo: EditText
+    private var item: Memo? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_memo)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setTitle("메모")
+        supportActionBar!!.setTitle("일정")
 
         edit_memo = findViewById(R.id.edit_memo)
         edit_title = findViewById(R.id.edit_title)
+
+        val intent = intent.extras
+        if(intent != null) {
+            item = intent.getSerializable("item") as Memo
+            edit_memo.setText(item?.memo)
+            edit_title.setText(item?.title)
+        }
    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -35,8 +45,12 @@ class MemoActivity : AppCompatActivity(){
                 val title = edit_title.text.toString()
                 val memo = edit_memo.text.toString()
                 if(!memo.equals("")){
-                    DBLoader(applicationContext).save(title, memo)
-                    finish()
+                    if(this.item != null){
+
+                    }else{
+                        DBLoader(applicationContext).save(title, memo)
+                        finish()
+                    }
                 }
             }
         }

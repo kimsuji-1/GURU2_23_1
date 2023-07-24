@@ -41,11 +41,16 @@ class CalenderFragment : Fragment() {
             startActivity(Intent(requireContext(), MemoActivity::class.java))
         }
         val calendarView = view.findViewById<CalendarView>(R.id.calendar_view)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = MemoAdapter(reqireContext())
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+
+        override fun onResume(){
+            super.onResume()
+            adapter.setList(DBLoader(requireContext()).meemoList(null))
+        }
 
         calendarView.setOnDateChangeListener(object : CalendarView.onDateChangeListener{
             override fun onSelectedDayChange(p0: calendarView, p1: Int, p2: Int, p3: Int){
