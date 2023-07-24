@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.DayRecordActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="하루일정"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:gravity=""
+            android:text="웃모찌에게 하루를 알려줘!"
+            android:paddingBottom="5dp"
+            android:drawableLeft="@drawable/mocchixml"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:onClick="onMealClick"
+            android:gravity="clip_horizontal"
+            android:drawableLeft="@drawable/mealxml"
+            android:text="식사"
+            android:textSize="30sp"
+            android:paddingBottom="110dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:onClick="onScheduleClick"
+            android:gravity="clip_horizontal"
+            android:drawableLeft="@drawable/schedulexml"
+            android:text="To Do / 일정"
+            android:textSize="30sp"
+            android:paddingBottom="110dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:onClick="onMoodClick"
+            android:gravity="clip_horizontal"
+            android:drawableLeft="@drawable/moodxml"
+            android:text="기분 / 한줄 일기"
+            android:textSize="30sp"
+            android:paddingBottom="110dp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
