@@ -3,6 +3,7 @@ package com.example.guru2_23_1.ui.DB
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import com.example.guru2_23_1.ui.model.Memo
 import java.util.Calendar
