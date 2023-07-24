@@ -49,7 +49,7 @@ class MemoActivity : AppCompatActivity(){
 
                     }else{
                         DBLoader(applicationContext).save(title, memo)
-                        finish()
+//                        finish()
                     }
                 }
             }
