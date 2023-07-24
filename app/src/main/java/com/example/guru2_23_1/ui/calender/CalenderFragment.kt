@@ -2,12 +2,10 @@ package com.example.guru2_23_1.ui.calender
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,20 +38,20 @@ class CalenderFragment : Fragment() {
         btnAdd.setOnClickListener {
             startActivity(Intent(requireContext(), MemoActivity::class.java))
         }
-        val calendarView = view.findViewById<CalendarView>(R.id.calendar_view)
+        val calendarView = view.findViewById<CalendarView>(R.id.calender_view)
 
         adapter = MemoAdapter(reqireContext())
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycle_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
         override fun onResume(){
             super.onResume()
-            adapter.setList(DBLoader(requireContext()).meemoList(null))
+            adapter.setList(DBLoader(requireContext()).memoList(null))
         }
 
-        calendarView.setOnDateChangeListener(object : CalendarView.onDateChangeListener{
-            override fun onSelectedDayChange(p0: calendarView, p1: Int, p2: Int, p3: Int){
+        calendarView.setOnDateChangeListener(object :CalendarView.OnDateChangeListener {
+            override fun onSelectedDayChange(p0: CalendarView, p1: Int, p2: Int, p3: Int){
                 if(selectday.equals(String.format("%04d%02d%02d",p1, p2+1, 3))){
                     startActivity(Intent(requireContext(), MemoActivity::class.java))
                 }

@@ -3,11 +3,9 @@ package com.example.guru2_23_1.ui.DB
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import com.example.guru2_23_1.ui.model.Memo
 import java.util.Calendar
-import java.util.Date
 
 class DBLoader(context: Context) {
 
@@ -20,15 +18,12 @@ class DBLoader(context: Context) {
 
     fun save(title: String, memo:String){
         val calendar = Calendar.getInstance()
-        Log.d("hhh", calendar.get(Calendar.YEAR).toString())
-        Log.d("hhh", calendar.timeInMillis.toString())
         val contentValues = ContentValues()
         contentValues.put("title", title)
         contentValues.put("memo", memo)
-        contentValues.put("datetime", calendar.timeInMillis)
-
-//        db.writableDatabase.insert("note", null, contentValues)
-//        db.close()
+        contentValues.put("daytime", calendar.timeInMillis)
+        db.writableDatabase.insert("note", null, contentValues)
+        db.close()
         Toast.makeText(context, "저장됨", Toast.LENGTH_SHORT).show()
 
     }
@@ -40,20 +35,20 @@ class DBLoader(context: Context) {
     }
 
     @SuppressLint("Range")
-    fun meemoList(datetime: Int?): ArrayList<Memo>{
+    fun memoList(datetime: Long): ArrayList<Memo>{
         val array = ArrayList<Memo>()
         var sql = ""
         if(datetime == null){
-            sql = "select * from note order by datetime desc"
+            sql = "select * from note order by daytime desc"
         }else{
-            sql = "select * from note where datetime = "+ datetime +" note order by datetime desc"
+            sql = "select * from note where daytime = "+ datetime +" note order by daytime desc"
         }
         val cursor = db.readableDatabase.rawQuery(sql, null)
         while(cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndex("id"))
             val title = cursor.getString(cursor.getColumnIndex("title"))
             val memo = cursor.getString(cursor.getColumnIndex("memo"))
-            val getDatetime = cursor.getInt(cursor.getColumnIndex("datetime"))
+            val getDatetime = cursor.getInt(cursor.getColumnIndex("daytime"))
 
             val memoItem = Memo(id, title, memo, getDatetime)
             array.add(memoItem)
