@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guru2_23_1.MemoActivity
 import com.example.guru2_23_1.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
@@ -32,6 +33,12 @@ class CalenderFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+       val btnAdd = view.findViewById<FloatingActionButton>(R.id.btn_add)
+        btnAdd.setOnClickListener {
+            startActivity(Intent(requireContext(), MemoActivity::class.java))
+        }
         val calendarView = view.findViewById<CalendarView>(R.id.calendar_view)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
