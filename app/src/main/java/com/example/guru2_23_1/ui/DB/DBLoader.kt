@@ -1,8 +1,10 @@
 package com.example.guru2_23_1.ui.DB
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.widget.Toast
+import com.example.guru2_23_1.ui.model.Memo
 import java.util.Date
 
 class DBLoader(context: Context) {
@@ -33,7 +35,26 @@ class DBLoader(context: Context) {
         Toast.makeText(context, "삭제됨", Toast.LENGTH_SHORT).show()
     }
 
-    fun meemoList(datetime: Int){
+    @SuppressLint("Range")
+    fun meemoList(datetime: Int?): ArrayList<Memo>{
+        val array = ArrayList<Memo>()
+        var sql = ""
+        if(datetime == null){
+            sql = "select * from note order by datetime desc"
+        }else{
+            sql = "select * from note where datetime = "+ datetime +" note order by datetime desc"
+        }
+        val cursor = db.readableDatabase.rawQuery(sql, null)
+        while(cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndex("id"))
+            val title = cursor.getString(cursor.getColumnIndex("title"))
+            val memo = cursor.getString(cursor.getColumnIndex("memo"))
+            val getDatetime = cursor.getInt(cursor.getColumnIndex("datetime"))
 
+            val memoItem = Memo(id, title, memo, getDatetime)
+            array.add(memoItem)
+        }
+
+        return array
     }
 }
