@@ -9,7 +9,7 @@ class DBHelper(context: Context) :SQLiteOpenHelper(context, "memo.db", null, 1, 
         //id, title, memo, datetime
 
         val sql =
-            "create table note (id integer primary key autoincrement, title text, memo text not null, datetime integer)"
+            "create table note (id integer primary key autoincrement, title text, memo text not null, daytime integer)"
         db!!.execSQL(sql)
     }
 
