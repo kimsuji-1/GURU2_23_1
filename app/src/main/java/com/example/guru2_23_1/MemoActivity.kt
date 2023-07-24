@@ -15,7 +15,7 @@ class MemoActivity : AppCompatActivity(){
     private var item: Memo? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_memo)
+        setContentView(R.layout.activity_memo)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("일정")
 

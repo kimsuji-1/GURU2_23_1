@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guru2_23_1.MemoActivity
@@ -44,6 +43,6 @@ class CalenderFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        adapter.setList(DBLoader(requireContext()).meemoList(null))
+        adapter.setList(DBLoader(requireContext()).memoList(null))
     }
 }

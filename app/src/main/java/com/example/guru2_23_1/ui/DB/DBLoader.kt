@@ -35,7 +35,7 @@ class DBLoader(context: Context) {
     }
 
     @SuppressLint("Range")
-    fun memoList(datetime: Long): ArrayList<Memo>{
+    fun memoList(datetime: Long?): ArrayList<Memo>{
         val array = ArrayList<Memo>()
         var sql = ""
         if(datetime == null){
