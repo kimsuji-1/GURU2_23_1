@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MealActivity">
+    tools:context=".MealActivity"
+    android:paddingHorizontal="20dp">
 
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/custom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_500"
+        android:background="@drawable/rounded_corner"
         app:title="하루 작성"
         app:titleTextColor="@color/white" />
 
@@ -23,6 +24,8 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="식사 : "
@@ -30,6 +33,7 @@
 
         <EditText
             android:id="@+id/edtMeal"
+            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -37,33 +41,42 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
         <Button
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounded_corner_gray"
             android:id="@+id/btnBreakfast"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:text="아침" />
 
         <Button
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounded_corner_gray"
             android:id="@+id/btnLunch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:text="점심" />
 
         <Button
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounded_corner_gray"
             android:id="@+id/btnDinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:text="저녁" />
 
         <Button
+            android:background="@drawable/rounded_corner_gray"
             android:id="@+id/btnSnack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:text="간식" />
 
     </LinearLayout>
@@ -78,7 +91,7 @@
             android:id="@+id/edtMealResult"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="#DDDDFC"
+            android:background="#ffff"
             android:padding="20dp"
             android:layout_weight="1"/>
 
