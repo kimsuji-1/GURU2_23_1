@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DayRecordActivity"
+    tools:context=".ui.notifications.NotificationsFragment"
     android:paddingHorizontal="20dp">
 
     <RelativeLayout
@@ -44,7 +44,7 @@
             android:id="@+id/button_meal"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="120dp"
             android:onClick="onMealClick"
             android:gravity="clip_horizontal"
             android:drawableLeft="@drawable/mealxml"
@@ -73,7 +73,7 @@
             android:id="@+id/button_todo"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="120dp"
             android:onClick="onScheduleClick"
             android:gravity="clip_horizontal"
             android:drawableLeft="@drawable/schedulexml"
@@ -89,7 +89,7 @@
             android:id="@+id/button_mood"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="120dp"
             android:onClick="onMoodClick"
             android:gravity="clip_horizontal"
             android:drawableLeft="@drawable/moodxml"

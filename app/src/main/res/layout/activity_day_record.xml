@@ -4,65 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DayRecordActivity">
+    tools:context=".DayRecordActivity">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteX="170dp"
         tools:layout_editor_absoluteY="40dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="하루일정"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/custom_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/purple_500"
+            app:title="하루 작성"
+            app:titleTextColor="@color/white" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:gravity=""
-            android:text="웃모찌에게 하루를 알려줘!"
-            android:paddingBottom="5dp"
+            android:layout_height="140dp"
             android:drawableLeft="@drawable/mocchixml"
+            android:text="웃모찌에게 하루를 알려줘!"
+            android:gravity=""
             android:textSize="25sp"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/meal_btn"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:onClick="onMealClick"
-            android:gravity="clip_horizontal"
+            android:layout_height="140dp"
             android:drawableLeft="@drawable/mealxml"
+            android:gravity="clip_horizontal"
+            android:onClick="onMealClick"
+            android:paddingBottom="80dp"
             android:text="식사"
             android:textSize="30sp"
-            android:paddingBottom="110dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
         <Button
+            android:id="@+id/schedule_btn"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="140dp"
             android:onClick="onScheduleClick"
             android:gravity="clip_horizontal"
             android:drawableLeft="@drawable/schedulexml"
             android:text="To Do / 일정"
             android:textSize="30sp"
-            android:paddingBottom="110dp"
+            android:paddingBottom="80dp"
             android:textStyle="bold"/>
 
         <Button
+            android:id="@+id/diary_btn"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:onClick="onMoodClick"
-            android:gravity="clip_horizontal"
+            android:layout_height="140dp"
             android:drawableLeft="@drawable/moodxml"
+            android:gravity="clip_horizontal"
+            android:onClick="onMoodClick"
+            android:paddingBottom="80dp"
             android:text="기분 / 한줄 일기"
             android:textSize="30sp"
-            android:paddingBottom="110dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
