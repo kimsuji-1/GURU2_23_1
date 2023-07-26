@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/round.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#ccc" /> <!-- 원하는 배경 색상 설정 -->
+    <corners android:radius="8dp" /> <!-- 원하는 라운드 코너 설정 -->
+</shape>

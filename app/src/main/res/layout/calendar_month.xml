@@ -6,6 +6,11 @@
     android:orientation="vertical"
     tools:context=".ui.calender.CalendarFragment">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +22,7 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:text="month"
-            android:textColor="#BDC0BA" />
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/month_year_tv"
@@ -26,7 +31,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="July 2023"
-            android:textColor="#000000"
+            android:textColor="#BDC0BA"
             android:textSize="16sp" />
 
         <Button
@@ -36,6 +41,36 @@
             android:background="#00FFFFFF"
             android:text="Today"
             android:textColor="#BDC0BA" />
+    </LinearLayout>
+
+    <!-- 달력 모형을 출력하는 레이아웃 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/month_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="July 2023"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_gravity="center"/>
+
+        <!-- 달력을 표시하는 GridView -->
+        <GridView
+            android:id="@+id/month_calendar_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:verticalSpacing="4dp"
+            android:numColumns="7"
+            android:horizontalSpacing="4dp"
+            android:gravity="center"
+            android:stretchMode="columnWidth"
+            android:padding="4dp"
+            android:background="#E8E8E8"/>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
