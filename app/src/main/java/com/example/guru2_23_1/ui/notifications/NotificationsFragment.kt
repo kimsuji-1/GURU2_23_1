@@ -1,5 +1,6 @@
 package com.example.guru2_23_1.ui.notifications
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,5 +19,7 @@ class NotificationsFragment : Fragment() {
     ): View {
         val root: View = inflater.inflate(R.layout.fragment_notifications, container, false)
         return root
+
     }
+
 }
