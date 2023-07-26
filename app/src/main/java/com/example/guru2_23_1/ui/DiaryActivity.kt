@@ -16,7 +16,7 @@ class DiaryActivity : AppCompatActivity() {
     lateinit var edtDiary: EditText
     lateinit var mood: RatingBar
     lateinit var btnSave: Button
-    var score: Float = 0F                       //별점 점수 저장하는 변수
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary)
@@ -26,8 +26,8 @@ class DiaryActivity : AppCompatActivity() {
         btnSave = findViewById(R.id.btnSave)
 
         dbManager = DBDiary(this, "DBDIARY", null, 1)
-        mood.setOnRatingBarChangeListener{
-            mood, rating, fromUser -> score = rating
+        mood.setOnRatingBarChangeListener { mood, rating, fromUser ->
+//            Toast.makeText(applicationContext,"$rating 점", Toast.LENGTH_SHORT).show()
         }
 
         btnSave.setOnClickListener {
@@ -37,7 +37,8 @@ class DiaryActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "하루 일기를 써 주세요", Toast.LENGTH_SHORT).show()
             }else{
                 sqlitedb = dbManager.writableDatabase
-                sqlitedb.execSQL("INSERT INTO DBDIARY VALUES(NULL, NULL, NULL, NULL, $score, $str_diary)")
+                sqlitedb.execSQL("INSERT INTO DBDIARY VALUES (sdfasf, asdfsd, asdf, asdfsdf, ${mood.rating}, $str_diary)")
+                Toast.makeText(applicationContext, "저장되었습니다", Toast.LENGTH_SHORT).show()
             }
         }
 

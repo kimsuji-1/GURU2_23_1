@@ -14,7 +14,7 @@ class DBDiary (context: Context,
                 "CREATE TABLE DBDIARY (ID VARCHAR(20) PRIMARY KEY, MEAL VARCHAR(50), TODO VARCHAR(50), SCHEDULE VARCHAR(50), MOOD FLOAT(5), DIARY VARCHAR(100))")
         }
 
-        override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
+        override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
 
         }
 
