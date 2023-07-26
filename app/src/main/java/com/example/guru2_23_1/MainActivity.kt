@@ -16,7 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.guru2_23_1.databinding.ActivityMainBinding
 import com.example.guru2_23_1.ui.DayRecordActivity
 import com.example.guru2_23_1.ui.MealActivity
-import com.example.guru2_23_1.ui.calender.CalendarFragment
+import com.example.guru2_23_1.ui.calender.CalenderFragment
 import com.example.guru2_23_1.ui.home.HomeFragment
 import com.example.guru2_23_1.ui.notifications.NotificationsFragment
 
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                             ContextCompat.getColorStateList(this, R.color.black)
                         nav_view.itemTextColor =
                             ContextCompat.getColorStateList(this, R.color.black)
-                        CalendarFragment()
+                        CalenderFragment()
                         //Respond to navigation item calendar click
                     }
 

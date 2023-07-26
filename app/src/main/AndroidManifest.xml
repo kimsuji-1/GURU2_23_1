@@ -25,8 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MemoActivity" />
+        <activity android:name=".ui.MealActivity"/>
+        <activity android:name=".ui.DiaryActivity"/>
+        <activity android:name=".ui.SchelduleActivity"/>
     </application>
 
 </manifest>
