@@ -26,8 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MealActivity"/>
-
-        <activity android:name=".MemoActivity" />
+        <activity android:name=".ui.DiaryActivity"/>
+        <activity android:name=".ui.SchelduleActivity"/>
     </application>
 
 </manifest>
