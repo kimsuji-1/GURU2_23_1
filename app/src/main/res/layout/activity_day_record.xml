@@ -99,7 +99,6 @@
             android:paddingLeft="10dp"
             android:textStyle="bold"
             android:background="@drawable/rounded_corner"/>
-
     </RelativeLayout>
 
 
