@@ -18,7 +18,6 @@ class DayRecordActivity : AppCompatActivity() {
         buttonMeal.setOnClickListener {startActivity(Intent(this, MealActivity::class.java))}
         buttonTodo.setOnClickListener {startActivity(Intent(this, SchelduleActivity::class.java))}
         buttonMood.setOnClickListener {startActivity(Intent(this, DiaryActivity::class.java))}
-
         }
     }
 
