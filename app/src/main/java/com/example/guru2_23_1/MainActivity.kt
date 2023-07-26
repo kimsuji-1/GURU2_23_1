@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                         //Respond to navigation item home click
                     }
 
-                    R.id.navigation_dashboard -> {
+                    R.id.navigation_calendar -> {
                         nav_view.itemIconTintList =
                             ContextCompat.getColorStateList(this, R.color.black)
                         nav_view.itemTextColor =
