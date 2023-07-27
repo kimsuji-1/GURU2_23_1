@@ -1,17 +1,15 @@
 package com.example.guru2_23_1.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.example.guru2_23_1.R
-import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
+import com.example.guru2_23_1.ui.DB.DBMeal
+import java.text.SimpleDateFormat
 
 
 class MealActivity : AppCompatActivity() {
@@ -24,8 +22,12 @@ class MealActivity : AppCompatActivity() {
     lateinit var btnSnack: Button
     lateinit var btnSelect: Button
 
-    lateinit var myHelper: myDBHelper
+    lateinit var dbManager: DBMeal
     lateinit var sqlDB: SQLiteDatabase
+
+    val currentTime : Long = System.currentTimeMillis() // ms로 반환
+    val dateformat = SimpleDateFormat("yyyy-MM-dd") // 년 월 일
+    val date = dateformat.format(currentTime)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,47 +42,46 @@ class MealActivity : AppCompatActivity() {
         btnSnack = findViewById(R.id.btnSnack)
         btnSelect = findViewById(R.id.btnSelect)
 
-
-        myHelper = myDBHelper(this)
+        dbManager = DBMeal(this, "DBMeal", null, 1)
 
         btnBreakfast.setOnClickListener {
-            sqlDB = myHelper.writableDatabase
+            sqlDB = dbManager.writableDatabase
 
-            sqlDB.execSQL("INSERT INTO groupTBL VALUES ('"+edtMeal.text.toString()+"');")
+            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ("+ date + ", '"+edtMeal.text.toString()+"');")
             sqlDB.close()
             Toast.makeText(applicationContext, "아침 식사 기록 완료!", Toast.LENGTH_SHORT).show()
         }
 
         btnLunch.setOnClickListener {
-            sqlDB = myHelper.writableDatabase
+            sqlDB = dbManager.writableDatabase
 
-            sqlDB.execSQL("INSERT INTO groupTBL VALUES ('"+edtMeal.text.toString()+"');")
+            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ("+ date + ", '"+edtMeal.text.toString()+"');")
             sqlDB.close()
             Toast.makeText(applicationContext, "점심 식사 기록 완료!", Toast.LENGTH_SHORT).show()
         }
 
         btnDinner.setOnClickListener {
-            sqlDB = myHelper.writableDatabase
+            sqlDB = dbManager.writableDatabase
 
-            sqlDB.execSQL("INSERT INTO groupTBL VALUES ('"+edtMeal.text.toString()+"');")
+            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ("+ date + ", '"+edtMeal.text.toString()+"');")
             sqlDB.close()
             Toast.makeText(applicationContext, "저녁 식사 기록 완료!", Toast.LENGTH_SHORT).show()
         }
 
         btnSnack.setOnClickListener {
-            sqlDB = myHelper.writableDatabase
+            sqlDB = dbManager.writableDatabase
 
-            sqlDB.execSQL("INSERT INTO groupTBL VALUES ('"+edtMeal.text.toString()+"');")
+            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ("+ date + ", '"+edtMeal.text.toString()+"');")
             sqlDB.close()
             Toast.makeText(applicationContext, "간식 기록 완료!", Toast.LENGTH_SHORT).show()
         }
 
 
         btnSelect.setOnClickListener {
-            sqlDB = myHelper.readableDatabase
+            sqlDB = dbManager.readableDatabase
 
             var cursor: Cursor
-            cursor = sqlDB.rawQuery("SELECT * FROM groupTBL;", null)
+            cursor = sqlDB.rawQuery("SELECT * FROM DBMEAL;", null)
 
             var strMeal = "식사 기록" + "\r\n" + "--------" + "\r\n"
 
@@ -92,18 +93,6 @@ class MealActivity : AppCompatActivity() {
 
             cursor.close()
             sqlDB.close()
-        }
-
-
-    }
-    inner class myDBHelper(context : Context) : SQLiteOpenHelper(context, "DBMEAL", null, 1) {
-        override fun onCreate(db: SQLiteDatabase?) {
-            db!!.execSQL("CREATE TABLE groupTBL (Meal CHAR(20) PRIMARY KEY);")
-        }
-
-        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-            db!!.execSQL("DROP TABLE IF EXISTS groupTBL")
-            onCreate(db)
         }
     }
 }

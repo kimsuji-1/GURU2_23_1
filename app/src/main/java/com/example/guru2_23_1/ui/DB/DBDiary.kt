@@ -14,8 +14,9 @@ class DBDiary (context: Context,
                 "CREATE TABLE DBDIARY (DATE DATE, MOOD FLOAT(5), DIARY VARCHAR(100))")
         }
 
-        override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-
+        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+            db!!.execSQL("DROP TABLE IF EXISTS DBDIARY")
+            onCreate(db)
         }
 
     }

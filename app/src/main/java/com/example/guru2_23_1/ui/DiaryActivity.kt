@@ -37,6 +37,7 @@ class DiaryActivity : AppCompatActivity() {
         btnSave = findViewById(R.id.btnSave)
 
         dbManager = DBDiary(this, "DBDIARY", null, 1)
+
         mood.setOnRatingBarChangeListener { mood, rating, fromUser ->
 //            Toast.makeText(applicationContext,"$rating 점", Toast.LENGTH_SHORT).show()
         }
@@ -55,6 +56,7 @@ class DiaryActivity : AppCompatActivity() {
         }
 
     }
+
 
 
 }
