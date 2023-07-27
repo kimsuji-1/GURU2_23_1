@@ -11,12 +11,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guru2_23_1.R
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.time.temporal.TemporalAdjusters
-import java.util.Locale
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CalendarFragment : Fragment() {
     val itemList = arrayListOf<Date>()
@@ -44,13 +40,11 @@ class CalendarFragment : Fragment() {
         // 오늘 버튼 클릭 시 CalendarMonthFragment로 전환
         val todayBtn: Button = view.findViewById(R.id.today_btn)
         todayBtn.setOnClickListener {
-            val fragmentTransaction: FragmentManager = parentFragmentManager.beginTransaction()
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
             val calendarMonthFragment = CalendarMonthFragment()
 
-            // FragmentContainer에 CalendarMonthFragment 추가
             fragmentTransaction.replace(R.id.fragment_container, calendarMonthFragment)
-
-            // 뒤로가기 버튼으로 이전 Fragment로 돌아갈 수 있도록 스택에 추가
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
@@ -60,17 +54,17 @@ class CalendarFragment : Fragment() {
 
     // list(날짜, 요일)를 만들고, adapter를 등록하는 메소드
     private fun setListView() {
+        val calendar = Calendar.getInstance()
+
         // 현재 달의 마지막 날짜
-        val lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth()).dayOfMonth
-        val currentMonth = LocalDate.now().month.getDisplayName(TextStyle.FULL, Locale.US)
-        val currentYear = LocalDate.now().year
+        val lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val currentMonth = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)
+        val currentYear = calendar.get(Calendar.YEAR)
 
         for (i: Int in 1..lastDayOfMonth) {
-            val date = LocalDate.of(LocalDate.now().year, LocalDate.now().month, i)
-            val dayOfWeek: DayOfWeek = date.dayOfWeek
-            val dayOfWeekShort = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US)
-
-            itemList.add(Date(dayOfWeekShort, i.toString()))
+            calendar.set(currentYear, calendar.get(Calendar.MONTH), i)
+            val dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)
+            itemList.add(Date(dayOfWeek, i.toString()))
         }
         calendarList.adapter = listAdapter
 

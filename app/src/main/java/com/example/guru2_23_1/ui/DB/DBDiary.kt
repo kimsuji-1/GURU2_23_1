@@ -8,10 +8,10 @@ class DBDiary (context: Context,
                name: String?,
                factory: SQLiteDatabase.CursorFactory?,
                version: Int
-    ): SQLiteOpenHelper(context, name, factory, version){
+    ): SQLiteOpenHelper(context, "DBDIARYTABLE", null, 1){
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL(
-                "CREATE TABLE DBDIARY (ID VARCHAR(20) PRIMARY KEY, MEAL VARCHAR(50), TODO VARCHAR(50), SCHEDULE VARCHAR(50), MOOD FLOAT(5), DIARY VARCHAR(100))")
+                "CREATE TABLE DBDIARY (DATE DATE, MOOD FLOAT(5), DIARY VARCHAR(100))")
         }
 
         override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {

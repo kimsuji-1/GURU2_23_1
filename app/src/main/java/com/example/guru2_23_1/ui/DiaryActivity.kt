@@ -9,6 +9,7 @@ import android.widget.RatingBar
 import android.widget.Toast
 import com.example.guru2_23_1.R
 import com.example.guru2_23_1.ui.DB.DBDiary
+import java.text.SimpleDateFormat
 
 class DiaryActivity : AppCompatActivity() {
     lateinit var dbManager: DBDiary
@@ -16,6 +17,9 @@ class DiaryActivity : AppCompatActivity() {
     lateinit var edtDiary: EditText
     lateinit var mood: RatingBar
     lateinit var btnSave: Button
+
+    val currentTime : Long = System.currentTimeMillis() // ms로 반환
+    val date = SimpleDateFormat("yyyy-MM-dd").format(currentTime) // 년 월 일
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +41,11 @@ class DiaryActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "하루 일기를 써 주세요", Toast.LENGTH_SHORT).show()
             }else{
                 sqlitedb = dbManager.writableDatabase
-                sqlitedb.execSQL("INSERT INTO DBDIARY VALUES (sdfasf, asdfsd, asdf, asdfsdf, ${mood.rating}, $str_diary)")
+                sqlitedb.execSQL("INSERT INTO DBDIARY VALUES (" + date + ", " + mood.rating + ", '" + str_diary + "');"
+                )
                 Toast.makeText(applicationContext, "저장되었습니다", Toast.LENGTH_SHORT).show()
             }
         }
-
-
 
     }
 
