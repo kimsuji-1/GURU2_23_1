@@ -19,7 +19,9 @@ class DiaryActivity : AppCompatActivity() {
     lateinit var btnSave: Button
 
     val currentTime : Long = System.currentTimeMillis() // ms로 반환
-    val date = SimpleDateFormat("yyyy-MM-dd").format(currentTime) // 년 월 일
+    val dateformat = SimpleDateFormat("yyyy-MM-dd") // 년 월 일
+    val date = dateformat.format(currentTime)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

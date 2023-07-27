@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.guru2_23_1.R
 import com.example.guru2_23_1.databinding.FragmentCalenderBinding
 import com.example.guru2_23_1.ui.MonthActivity
 import com.example.guru2_23_1.ui.addActivity
@@ -31,8 +29,8 @@ class CalenderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttontoday.setOnClickListener {startActivity(Intent(requireContext(), MonthActivity::class.java))}
-        binding.buttonadd.setOnClickListener {startActivity(Intent(requireContext(), addActivity::class.java))}
+        binding.todayBtn.setOnClickListener {startActivity(Intent(requireContext(), MonthActivity::class.java))}
+        binding.addBtn.setOnClickListener {startActivity(Intent(requireContext(), addActivity::class.java))}
     }
 
     override fun onDestroyView() {

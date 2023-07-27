@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.guru2_23_1.R
-import com.example.guru2_23_1.databinding.FragmentCalenderBinding
 import com.example.guru2_23_1.databinding.FragmentNotificationsBinding
 import com.example.guru2_23_1.ui.DiaryActivity
 import com.example.guru2_23_1.ui.MealActivity
