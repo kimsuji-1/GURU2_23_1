@@ -9,6 +9,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 
@@ -95,7 +96,7 @@ class MealActivity : AppCompatActivity() {
 
 
     }
-    inner class myDBHelper(context : Context) : SQLiteOpenHelper(context, "groupDB", null, 1) {
+    inner class myDBHelper(context : Context) : SQLiteOpenHelper(context, "DBMEAL", null, 1) {
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL("CREATE TABLE groupTBL (Meal CHAR(20) PRIMARY KEY);")
         }
