@@ -13,6 +13,15 @@
         android:theme="@style/Theme.GURU2_23_1"
         tools:targetApi="31">
         <activity
+            android:name=".ui.addActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MonthActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.CalendarActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.DayRecordActivity"
             android:exported="false" />
         <activity
@@ -25,9 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MealActivity"/>
-        <activity android:name=".ui.DiaryActivity"/>
-        <activity android:name=".ui.SchelduleActivity"/>
+        <activity android:name=".ui.MealActivity" />
+        <activity android:name=".ui.DiaryActivity" />
+        <activity android:name=".ui.SchelduleActivity" />
     </application>
 
 </manifest>
