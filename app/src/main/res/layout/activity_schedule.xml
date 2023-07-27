@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment"
     android:paddingHorizontal="20dp">
-    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/custom_Schedule"

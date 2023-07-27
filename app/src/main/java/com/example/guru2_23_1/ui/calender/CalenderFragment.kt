@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guru2_23_1.R
@@ -44,7 +44,7 @@ class CalendarFragment : Fragment() {
         // 오늘 버튼 클릭 시 CalendarMonthFragment로 전환
         val todayBtn: Button = view.findViewById(R.id.today_btn)
         todayBtn.setOnClickListener {
-            val fragmentTransaction: FragmentManager = parentFragmentManager.beginTransaction()
+            val fragmentTransaction: FragmentTransaction = parentFragmentManager.beginTransaction()
             val calendarMonthFragment = CalendarMonthFragment()
 
             // FragmentContainer에 CalendarMonthFragment 추가
