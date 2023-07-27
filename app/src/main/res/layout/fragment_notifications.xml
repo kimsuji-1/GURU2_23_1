@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="20dp"
-    tools:context=".ui.notifications.NotificationsFragment">
+    tools:context=".ui.DayRecordActivity"
+    android:paddingHorizontal="20dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,80 +26,70 @@
 
 
         <TextView
+            android:layout_below="@id/custom_toolbar"
             android:id="@+id/text_mochi"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:layout_below="@id/custom_toolbar"
-            android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/mocchixml"
             android:gravity=""
-            android:paddingBottom="5dp"
             android:text="웃모찌에게 하루를 알려줘!"
+            android:paddingBottom="5dp"
+            android:drawableLeft="@drawable/mocchixml"
             android:textSize="20sp"
             android:textStyle="bold" />
 
 
-        <Button
+        <android.widget.Button
             android:id="@+id/button_meal"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="130dp"
             android:layout_below="@id/text_mochi"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rounded_corner"
             android:drawableLeft="@drawable/mealxml"
-            android:gravity="clip_horizontal"
+            android:gravity="clip_horizontal|center_vertical"
             android:onClick="onMealClick"
-            android:paddingLeft="10dp"
+            android:paddingLeft="15dp"
             android:paddingBottom="60dp"
             android:text="식사"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:textColor="#FAF9F9" />
 
-        <TextView
-            android:id="@+id/meal_info"
+
+
+        <!--        <Button-->
+        <!--            android:layout_below="@id/button_meal"-->
+        <!--            android:id="@+id/button_todo"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="130dp"-->
+        <!--            android:onClick="onScheduleClick"-->
+        <!--            android:gravity="clip_horizontal"-->
+        <!--            android:drawableLeft="@drawable/schedulexml"-->
+        <!--            android:text="To Do / 일정"-->
+        <!--            android:textSize="25sp"-->
+        <!--            android:paddingBottom="60dp"-->
+        <!--            android:paddingLeft="10dp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:background="@drawable/rounded_corner" />-->
+
+        <android.widget.Button
+            android:id="@+id/button_mood"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_above="@id/button_todo"
-            android:layout_marginTop="10dp"
-            android:background="#fff"
-            android:gravity=""
-            android:text="오늘은 어떤 맛있는 음식을 먹었어?"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-        <Button
-            android:id="@+id/button_todo"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="130dp"
             android:layout_below="@id/button_meal"
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_corner"
-            android:drawableLeft="@drawable/schedulexml"
-            android:gravity="clip_horizontal"
-            android:onClick="onScheduleClick"
-            android:paddingLeft="10dp"
-            android:paddingBottom="60dp"
-            android:text="To Do / 일정"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/button_mood"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_below="@id/button_todo"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_corner"
             android:drawableLeft="@drawable/moodxml"
-            android:gravity="clip_horizontal"
+            android:gravity="clip_horizontal|center_vertical"
             android:onClick="onMoodClick"
-            android:paddingLeft="10dp"
+            android:paddingLeft="15dp"
             android:paddingBottom="60dp"
             android:text="기분 / 한줄 일기"
+            android:textColor="#FAF9F9"
             android:textSize="25sp"
             android:textStyle="bold" />
-
     </RelativeLayout>
 
 
