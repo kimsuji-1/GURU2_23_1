@@ -1,16 +1,21 @@
 package com.example.guru2_23_1.ui
 
 import android.database.sqlite.SQLiteDatabase
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.guru2_23_1.R
 import com.example.guru2_23_1.ui.DB.DBDiary
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 class DiaryActivity : AppCompatActivity() {
     lateinit var dbManager: DBDiary
     lateinit var sqlitedb: SQLiteDatabase
