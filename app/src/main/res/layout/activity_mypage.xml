@@ -4,19 +4,168 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.menu.MypageActivity">
+    tools:context=".ui.menu.MypageActivity"
+    android:paddingHorizontal="20dp">
 
-    <TextView
-        android:id="@+id/textView"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mypage_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/rounded_corner"
+        app:title="마이페이지"
+        app:titleTextColor="@color/white"
+        tools:ignore="MissingConstraints">
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/Uttmochi"
         android:layout_width="wrap_content"
-        android:layout_height="21dp"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="287dp"
-        android:layout_marginEnd="151dp"
-        android:layout_marginBottom="351dp"
-        android:text="마이페이지입니다."
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/mypage_toolbar"
+        app:srcCompat="@drawable/mocchixml" />
+
+<!-- 아이디 레이아웃 -->
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/Uttmochi">
+
+
+        <TextView
+            android:id="@+id/textID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID: "
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/txtID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textID"
+            app:layout_constraintStart_toEndOf="@+id/textID" />
+    </LinearLayout>
+
+<!-- 닉네임레이아웃 -->
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="닉네임: "
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textName"
+            app:layout_constraintStart_toEndOf="@+id/textName"/>
+    </LinearLayout>
+
+<!--지역레이아웃-->
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/textRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지역: "
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/spinner_Region"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textRegion" />
+    </LinearLayout>
+
+    <!-- 기존비밀번호레이아웃 -->
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        tools:layout_editor_absoluteX="20dp">
+
+        <TextView
+            android:id="@+id/textExistPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기존비밀번호"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/editTextExistPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="password"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textChangePassword"
+            app:layout_constraintStart_toEndOf="@+id/textChangePassword" />
+    </LinearLayout>
+
+    <!-- 바꿀비밀번호레이아웃 -->
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_updatepersonal"
+        tools:layout_editor_absoluteX="20dp">
+
+        <TextView
+            android:id="@+id/textChangePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="바꿀비밀번호: "
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/editTextChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="password"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textChangePassword"
+            app:layout_constraintStart_toEndOf="@+id/textChangePassword" />
+    </LinearLayout>
+
+    <android.widget.Button
+        android:id="@+id/button_updatepersonal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_corner"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="개인정보 수정"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:textColor="#FAF9F9" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,22 +2,13 @@ package com.example.guru2_23_1
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.FrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.guru2_23_1.databinding.ActivityMainBinding
-import com.example.guru2_23_1.ui.DayRecordActivity
-import com.example.guru2_23_1.ui.MealActivity
 import com.example.guru2_23_1.ui.calender.CalenderFragment
 import com.example.guru2_23_1.ui.home.HomeFragment
 import com.example.guru2_23_1.ui.menu.LogoutActivity
@@ -32,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        getSupportActionBar()?.show()
 
         val nav_view = findViewById<BottomNavigationView>(R.id.nav_view)
 

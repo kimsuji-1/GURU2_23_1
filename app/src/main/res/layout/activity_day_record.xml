@@ -21,7 +21,6 @@
             android:background="@drawable/rounded_corner"
             app:title="하루 작성"
             app:titleTextColor="@color/white">
-
         </androidx.appcompat.widget.Toolbar>
 
 

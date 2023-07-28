@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter
 class DiaryActivity : AppCompatActivity() {
     lateinit var dbManager: DBDiary
     lateinit var sqlitedb: SQLiteDatabase
+
     lateinit var edtDiary: EditText
     lateinit var mood: RatingBar
     lateinit var btnSave: Button
@@ -51,6 +52,7 @@ class DiaryActivity : AppCompatActivity() {
                 sqlitedb = dbManager.writableDatabase
                 sqlitedb.execSQL("INSERT INTO DBDIARY VALUES (" + date + ", " + mood.rating + ", '" + str_diary + "');"
                 )
+                sqlitedb.close()
                 Toast.makeText(applicationContext, "저장되었습니다", Toast.LENGTH_SHORT).show()
             }
         }
