@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import com.example.guru2_23_1.R
+import com.example.guru2_23_1.ui.DB.DBMember
 
 class MypageActivity : AppCompatActivity() {
 
@@ -19,7 +20,7 @@ class MypageActivity : AppCompatActivity() {
     lateinit var edtExistPassword: EditText
     lateinit var edtChangePassword: EditText
 
-    lateinit var dbManager: DBMEMBER
+    lateinit var dbManager: DBMember
     lateinit var sqlitedb: SQLiteDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -10,6 +10,9 @@ import com.example.guru2_23_1.databinding.FragmentNotificationsBinding
 import com.example.guru2_23_1.ui.DiaryActivity
 import com.example.guru2_23_1.ui.MealActivity
 import com.example.guru2_23_1.ui.SchelduleActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import com.example.guru2_23_1.R
 
 class NotificationsFragment : Fragment() {
 
@@ -30,10 +33,18 @@ class NotificationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).supportActionBar?.title = ""
+        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(getResources().getDrawable(R.drawable.img1))
+        (activity as AppCompatActivity).supportActionBar?.elevation = 0F
+
         binding.buttonMeal.setOnClickListener {startActivity(Intent(requireContext(), MealActivity::class.java))}
         binding.buttonTodo.setOnClickListener {startActivity(Intent(requireContext(), SchelduleActivity::class.java))}
-        binding.buttonMood.setOnClickListener {startActivity(Intent(requireContext(), DiaryActivity::class.java))}
+
+
+
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
