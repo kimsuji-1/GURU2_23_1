@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
@@ -19,13 +20,14 @@ import com.example.guru2_23_1.ui.DB.DBMember
 import org.w3c.dom.Text
 
 class RegisterActivity : AppCompatActivity() {
-//    lateinit var registerBinding: ActivityRegisterBinding
+
     var inputRegisterBtn: Button = findViewById(R.id.inputRegisterBtn)
     var edt_Id: EditText = findViewById(R.id.ID)
     var edt_Password: EditText = findViewById(R.id.PASSWORD)
     var edt_reInputPassword: EditText = findViewById(R.id.reInputPassword)
     var edt_Name: EditText = findViewById(R.id.NAME)
     var region_spinner: Spinner = findViewById(R.id.region_spinner)
+
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,12 @@ class RegisterActivity : AppCompatActivity() {
 
         dbManager = DBMember(this, "DBMEMBER", null, 1)
         sqlitedb = dbManager.writableDatabase
+
+        region_spinner.adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.spinner_array,
+            android.R.layout.simple_list_item_1
+        )
 
         val spinner_array =
             arrayOf<String>("지역 선택", "서울특별시", "인천광역시", "광주광역시", "경기도", "충청북도", "충청남도", "강원영서", "강원영동", "전라북도", "전라남도", "경상북도", "경상남도", "제주도")

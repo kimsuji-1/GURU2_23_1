@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.guru2_23_1.ui.calender.CalenderFragment
 import com.example.guru2_23_1.ui.home.HomeFragment
 import com.example.guru2_23_1.ui.menu.LogoutActivity
-//import com.example.guru2_23_1.ui.menu.MypageActivity
+import com.example.guru2_23_1.ui.menu.MypageActivity
 import com.example.guru2_23_1.ui.notifications.NotificationsFragment
 
 class MainActivity : AppCompatActivity() {
