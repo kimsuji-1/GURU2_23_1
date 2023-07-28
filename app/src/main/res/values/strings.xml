@@ -9,6 +9,7 @@
     <string name="action_logout">로그아웃</string>
 
     <string-array name="spinner_array">
+        <item>지역 선택</item>
         <item>서울특별시</item>
         <item>인천광역시</item>
         <item>광주광역시</item>

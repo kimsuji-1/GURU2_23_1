@@ -16,7 +16,7 @@ class LoginActivity : AppCompatActivity() {
         loginBinding = ActivityLoginBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(loginBinding.root)
-        DB = DBMember(this)
+        DB = DBMember(this, "DBMEMBER", null, 1)
 
         loginBinding.loginBtn!!.setOnClickListener {
             val user = loginBinding.nickname!!.text.toString()

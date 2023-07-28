@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
@@ -14,6 +15,7 @@ import com.example.guru2_23_1.ui.DB.DBDiary
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Date
 
 @RequiresApi(Build.VERSION_CODES.O)
 class DiaryActivity : AppCompatActivity() {
@@ -24,14 +26,13 @@ class DiaryActivity : AppCompatActivity() {
     lateinit var mood: RatingBar
     lateinit var btnSave: Button
 
-    val currentTime : Long = System.currentTimeMillis() // ms로 반환
-    val dateformat = SimpleDateFormat("yyyy-MM-dd") // 년 월 일
-    val date = dateformat.format(currentTime)
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary)
+
+        val currentTime : Long = System.currentTimeMillis() // ms로 반환
+        val dateformat = SimpleDateFormat("yyyy-MM-dd") // 년 월 일
+        val date = dateformat.format(currentTime)
 
         edtDiary = findViewById(R.id.edtDiary)
         mood = findViewById(R.id.Mood)
@@ -50,7 +51,8 @@ class DiaryActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "하루 일기를 써 주세요", Toast.LENGTH_SHORT).show()
             }else{
                 sqlitedb = dbManager.writableDatabase
-                sqlitedb.execSQL("INSERT INTO DBDIARY VALUES (" + date + ", " + mood.rating + ", '" + str_diary + "');"
+                Log.d("save_date", date)
+                sqlitedb.execSQL("INSERT INTO DBDIARY VALUES ('" + date + "', " + mood.rating + ", '" + str_diary + "');"
                 )
                 sqlitedb.close()
                 Toast.makeText(applicationContext, "저장되었습니다", Toast.LENGTH_SHORT).show()

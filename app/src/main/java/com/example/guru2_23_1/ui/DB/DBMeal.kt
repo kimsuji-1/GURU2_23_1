@@ -11,7 +11,7 @@ class DBMeal (context: Context,
 ): SQLiteOpenHelper(context, "DBMEALTABLE", null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL(
-            "CREATE TABLE DBMEAL (DATE DATE, MEAL VARCHAR(50))")
+            "CREATE TABLE DBMEAL (DATE CHAR(20), MEAL VARCHAR(50))")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

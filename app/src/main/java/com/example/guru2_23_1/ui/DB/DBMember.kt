@@ -5,14 +5,17 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class DBMember(context: Context?) :
+class DBMember(context: Context,
+               name: String?,
+               factory: SQLiteDatabase.CursorFactory?,
+               version: Int) :
     SQLiteOpenHelper(context, "DBMember", null, 1) {
-        override fun onCreate(MyDB: SQLiteDatabase) {
-            MyDB.execSQL("create Table users(username TEXT primary key, password TEXT)")
-        }
+    override fun onCreate(MyDB: SQLiteDatabase) {
+        MyDB.execSQL("CREATE TABLE DBMEMBERTABLE(ID VARCHAR(20) PRIMARY KEY, PASSWORD FLOAT(5), NAME VARCHAR(20), REGION CHAR(20))")
+    }
 
     override fun onUpgrade(MyDB: SQLiteDatabase, i: Int, i1: Int) {
-        MyDB.execSQL("drop Table if exists uesers")
+        MyDB.execSQL("DROP TABLE IF EXISTS DBMEMBER")
     }
 
     fun insertData(username: String?, password: String?) : Boolean {

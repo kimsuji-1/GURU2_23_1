@@ -11,7 +11,7 @@ class DBDiary (context: Context,
     ): SQLiteOpenHelper(context, "DBDIARYTABLE", null, 1){
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL(
-                "CREATE TABLE DBDIARY (DATE DATE, MOOD FLOAT(5), DIARY VARCHAR(100))")
+                "CREATE TABLE DBDIARY (DATE CHAR(20), MOOD FLOAT(5), DIARY VARCHAR(100))")
         }
 
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

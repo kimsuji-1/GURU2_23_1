@@ -55,7 +55,7 @@ class MealActivity : AppCompatActivity() {
         btnLunch.setOnClickListener {
             sqlDB = dbManager.writableDatabase
 
-            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ("+ date + ", '"+edtMeal.text.toString()+"');")
+            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ('"+ date + "', '"+edtMeal.text.toString()+"');")
             sqlDB.close()
             Toast.makeText(applicationContext, "점심 식사 기록 완료!", Toast.LENGTH_SHORT).show()
         }
@@ -63,7 +63,7 @@ class MealActivity : AppCompatActivity() {
         btnDinner.setOnClickListener {
             sqlDB = dbManager.writableDatabase
 
-            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ("+ date + ", '"+edtMeal.text.toString()+"');")
+            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ('"+ date + "', '"+edtMeal.text.toString()+"');")
             sqlDB.close()
             Toast.makeText(applicationContext, "저녁 식사 기록 완료!", Toast.LENGTH_SHORT).show()
         }
@@ -71,7 +71,7 @@ class MealActivity : AppCompatActivity() {
         btnSnack.setOnClickListener {
             sqlDB = dbManager.writableDatabase
 
-            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ("+ date + ", '"+edtMeal.text.toString()+"');")
+            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ('"+ date + "', '"+edtMeal.text.toString()+"');")
             sqlDB.close()
             Toast.makeText(applicationContext, "간식 기록 완료!", Toast.LENGTH_SHORT).show()
         }
