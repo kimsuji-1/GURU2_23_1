@@ -1,12 +1,15 @@
 package com.example.guru2_23_1.ui
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import com.example.guru2_23_1.R
 
 class DayRecordActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day_record)
@@ -14,12 +17,6 @@ class DayRecordActivity : AppCompatActivity() {
         val buttonMeal = findViewById<Button>(R.id.button_meal)
         buttonMeal.setOnClickListener {
             val intent = Intent(this, MealActivity::class.java)
-            startActivity(intent)
-        }
-
-        val buttonTodo = findViewById<Button>(R.id.button_todo)
-        buttonTodo.setOnClickListener {
-            val intent = Intent(this, DayRecordActivity::class.java)
             startActivity(intent)
         }
 

@@ -1,10 +1,12 @@
 package com.example.guru2_23_1.ui.notifications
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.guru2_23_1.databinding.FragmentNotificationsBinding
 import com.example.guru2_23_1.ui.DiaryActivity
@@ -30,6 +32,7 @@ class NotificationsFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -38,7 +41,7 @@ class NotificationsFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.elevation = 0F
 
         binding.buttonMeal.setOnClickListener {startActivity(Intent(requireContext(), MealActivity::class.java))}
-        binding.buttonTodo.setOnClickListener {startActivity(Intent(requireContext(), SchelduleActivity::class.java))}
+        binding.buttonMood.setOnClickListener {startActivity(Intent(requireContext(), DiaryActivity::class.java))}
 
 
 
