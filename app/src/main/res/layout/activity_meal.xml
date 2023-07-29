@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MealActivity"
+    tools:context=".ui.MealActivity"
     android:paddingHorizontal="20dp">
 
 
@@ -19,12 +19,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
 
         <TextView
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,75 +34,91 @@
             android:id="@+id/edtMeal"
             android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:hint="식사를 입력해주세요."/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <android.widget.Button
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rounded_corner_gray"
             android:id="@+id/btnBreakfast"
             android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:text="아침" />
 
-        <Button
+        <android.widget.Button
             android:layout_marginRight="10dp"
             android:background="@drawable/rounded_corner_gray"
             android:id="@+id/btnLunch"
             android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:text="점심" />
 
-        <Button
+        <android.widget.Button
             android:layout_marginRight="10dp"
             android:background="@drawable/rounded_corner_gray"
             android:id="@+id/btnDinner"
             android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:text="저녁" />
 
-        <Button
+        <android.widget.Button
             android:background="@drawable/rounded_corner_gray"
             android:id="@+id/btnSnack"
             android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:text="간식" />
 
 
     </LinearLayout>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/btnSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rounded_corner_gray"
         android:text="식사 기록 보기"
         android:layout_gravity="center"/>
 
     <LinearLayout
+        android:id="@+id/dateLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
-        <EditText
-            android:id="@+id/edtMealResult"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#ffff"
-            android:padding="20dp"
-            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/txtCurrentDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F8DB84"
+            android:textSize="20dp" />
+
 
     </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/meal_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical"/>
+
+    </ScrollView>
 
 </LinearLayout>

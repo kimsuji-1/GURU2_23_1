@@ -1,21 +1,23 @@
 package com.example.guru2_23_1.ui
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.example.guru2_23_1.R
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.view.View
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.example.guru2_23_1.ui.DB.DBMeal
 import java.text.SimpleDateFormat
 
-
 class MealActivity : AppCompatActivity() {
 
     lateinit var edtMeal: EditText
-    lateinit var edtMealResult: EditText
     lateinit var btnBreakfast: Button
     lateinit var btnLunch: Button
     lateinit var btnDinner: Button
@@ -25,16 +27,23 @@ class MealActivity : AppCompatActivity() {
     lateinit var dbManager: DBMeal
     lateinit var sqlDB: SQLiteDatabase
 
-    val currentTime : Long = System.currentTimeMillis() // ms로 반환
-    val dateformat = SimpleDateFormat("yyyy-MM-dd") // 년 월 일
-    val date = dateformat.format(currentTime)
+    lateinit var layout: LinearLayout
+//    lateinit var str_date: String
+    lateinit var dateLayout: LinearLayout
+    lateinit var txtCurrentDate: TextView
+    lateinit var str_meal: String
 
+    @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val currentTime : Long = System.currentTimeMillis() // ms로 반환
+        val dateformat = SimpleDateFormat("yyyy-MM-dd") // 년 월 일
+        val date = dateformat.format(currentTime)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meal)
 
         edtMeal = findViewById(R.id.edtMeal)
-        edtMealResult = findViewById(R.id.edtMealResult)
 
         btnBreakfast = findViewById(R.id.btnBreakfast)
         btnLunch = findViewById(R.id.btnLunch)
@@ -42,9 +51,12 @@ class MealActivity : AppCompatActivity() {
         btnSnack = findViewById(R.id.btnSnack)
         btnSelect = findViewById(R.id.btnSelect)
 
+        layout = findViewById(R.id.meal_list)
+
         dbManager = DBMeal(this, "DBMeal", null, 1)
 
         btnBreakfast.setOnClickListener {
+            Toast_NoMeal()
             sqlDB = dbManager.writableDatabase
 
             sqlDB.execSQL("INSERT INTO DBMEAL VALUES ("+ date + ", '"+edtMeal.text.toString()+"');")
@@ -53,6 +65,7 @@ class MealActivity : AppCompatActivity() {
         }
 
         btnLunch.setOnClickListener {
+            Toast_NoMeal()
             sqlDB = dbManager.writableDatabase
 
             sqlDB.execSQL("INSERT INTO DBMEAL VALUES ('"+ date + "', '"+edtMeal.text.toString()+"');")
@@ -61,6 +74,7 @@ class MealActivity : AppCompatActivity() {
         }
 
         btnDinner.setOnClickListener {
+            Toast_NoMeal()
             sqlDB = dbManager.writableDatabase
 
             sqlDB.execSQL("INSERT INTO DBMEAL VALUES ('"+ date + "', '"+edtMeal.text.toString()+"');")
@@ -69,6 +83,7 @@ class MealActivity : AppCompatActivity() {
         }
 
         btnSnack.setOnClickListener {
+            Toast_NoMeal()
             sqlDB = dbManager.writableDatabase
 
             sqlDB.execSQL("INSERT INTO DBMEAL VALUES ('"+ date + "', '"+edtMeal.text.toString()+"');")
@@ -81,18 +96,47 @@ class MealActivity : AppCompatActivity() {
             sqlDB = dbManager.readableDatabase
 
             var cursor: Cursor
-            cursor = sqlDB.rawQuery("SELECT * FROM DBMEAL;", null)
+            cursor = sqlDB.rawQuery("SELECT * FROM DBMEAL WHERE DATE = '"+date+"';", null)
 
-            var strMeal = "식사 기록" + "\r\n" + "--------" + "\r\n"
+            txtCurrentDate = findViewById(R.id.txtCurrentDate)
+            dateLayout = findViewById(R.id.dateLayout)
 
+            txtCurrentDate.setText(date)
+            dateLayout.visibility = View.VISIBLE
+
+            var num: Int = 0
             while(cursor.moveToNext()) {
-                strMeal += cursor.getString(0) + "\r\n"
+//                str_date = cursor.getString(cursor.getColumnIndex("DATE")).toString()
+                str_meal = cursor.getString(cursor.getColumnIndex("MEAL")).toString()
+
+                var layout_item = LinearLayout(this)
+                layout_item.orientation = LinearLayout.VERTICAL
+                layout_item.id = num
+
+//                var tvDate = TextView(this)
+//                tvDate.text = str_date
+//                tvDate.textSize = 20f
+//                tvDate.setBackgroundColor(Color.LTGRAY)
+//                layout_item.addView(tvDate)
+
+                var tvMeal = TextView(this)
+                tvMeal.text = str_meal
+                tvMeal.textSize = 20f
+                layout_item.addView(tvMeal)
+
+                layout.addView(layout_item)
+                num++
             }
 
-            edtMealResult.setText(strMeal)
 
             cursor.close()
             sqlDB.close()
+        }
+    }
+
+    private fun Toast_NoMeal(){
+        if(edtMeal.text.toString()=="") {
+            Toast.makeText(applicationContext, "식사를 입력해주세요.", Toast.LENGTH_SHORT).show()
         }
     }
 }
