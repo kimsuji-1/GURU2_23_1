@@ -19,7 +19,9 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         (activity as AppCompatActivity).supportActionBar?.title = "Home"
-        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ff2255")))
+//        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ff2255")))
+        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(resources.getDrawable(R.color.white))
+        (activity as AppCompatActivity).supportActionBar?.elevation = 0F
     }
 
     override fun onCreateView(

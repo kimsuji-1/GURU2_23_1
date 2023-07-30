@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.guru2_23_1.R
 import com.example.guru2_23_1.databinding.FragmentCalenderBinding
 import com.example.guru2_23_1.ui.MonthActivity
 import com.example.guru2_23_1.ui.addActivity
@@ -25,7 +26,9 @@ class CalenderFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         (activity as AppCompatActivity).supportActionBar?.title = "Calender"
-        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ff2255")))
+//        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ff2255")))
+        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(resources.getDrawable(R.color.white))
+        (activity as AppCompatActivity).supportActionBar?.elevation = 0F
     }
 
     override fun onCreateView(
