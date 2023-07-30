@@ -24,6 +24,14 @@ class NotificationsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        (activity as AppCompatActivity).supportActionBar?.title = ""
+        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(getResources().getDrawable(R.drawable.img1))
+        (activity as AppCompatActivity).supportActionBar?.elevation = 0F
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,9 +44,7 @@ class NotificationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = ""
-        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(getResources().getDrawable(R.drawable.img1))
-        (activity as AppCompatActivity).supportActionBar?.elevation = 0F
+
 
         binding.buttonMeal.setOnClickListener {startActivity(Intent(requireContext(), MealActivity::class.java))}
         binding.buttonMood.setOnClickListener {startActivity(Intent(requireContext(), DiaryActivity::class.java))}
