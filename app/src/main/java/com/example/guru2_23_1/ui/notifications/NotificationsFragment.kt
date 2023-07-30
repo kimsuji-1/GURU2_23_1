@@ -44,13 +44,8 @@ class NotificationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         binding.buttonMeal.setOnClickListener {startActivity(Intent(requireContext(), MealActivity::class.java))}
         binding.buttonMood.setOnClickListener {startActivity(Intent(requireContext(), DiaryActivity::class.java))}
-
-
-
     }
 
 

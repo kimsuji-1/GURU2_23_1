@@ -17,14 +17,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--        <androidx.appcompat.widget.Toolbar-->
-        <!--            android:id="@+id/custom_toolbar"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="?attr/actionBarSize"-->
-        <!--            android:background="@drawable/rounded_corner"-->
-        <!--            app:title="하루 작성"-->
-        <!--            app:titleTextColor="@color/white">-->
-        <!--        </androidx.appcompat.widget.Toolbar>-->
+<!--                <androidx.appcompat.widget.Toolbar-->
+<!--                    android:id="@+id/custom_toolbar"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="?attr/actionBarSize"-->
+<!--                    android:background="@drawable/rounded_corner"-->
+<!--                    app:title="하루 작성"-->
+<!--                    app:titleTextColor="@color/white">-->
+<!--                </androidx.appcompat.widget.Toolbar>-->
 
 
         <TextView

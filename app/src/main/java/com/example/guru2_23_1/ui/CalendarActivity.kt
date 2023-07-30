@@ -11,6 +11,7 @@ class CalendarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
 
+
         val buttontoday = findViewById<Button>(R.id.today_btn)
         buttontoday.setOnClickListener {
             val intent = Intent(this, MonthActivity::class.java)
