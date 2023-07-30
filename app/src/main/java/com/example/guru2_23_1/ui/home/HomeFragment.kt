@@ -20,8 +20,9 @@ class HomeFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = "Home"
 //        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ff2255")))
+        //액션바 배경색 흰 색으로
         (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(resources.getDrawable(R.color.white))
-        (activity as AppCompatActivity).supportActionBar?.elevation = 0F
+        (activity as AppCompatActivity).supportActionBar?.elevation = 0F // 액션바 그림자 안 보이개
     }
 
     override fun onCreateView(
