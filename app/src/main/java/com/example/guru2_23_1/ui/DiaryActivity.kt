@@ -30,6 +30,9 @@ class DiaryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary)
 
+        // 액션바에 'Today's Diary' 문구 표시
+        supportActionBar?.title = "Today's Diary"
+
         val currentTime : Long = System.currentTimeMillis() // ms로 반환
         val dateformat = SimpleDateFormat("yyyy-MM-dd") // 년 월 일
         val date = dateformat.format(currentTime)

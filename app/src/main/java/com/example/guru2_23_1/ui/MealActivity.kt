@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.example.guru2_23_1.ui.DB.DBMeal
 import java.text.SimpleDateFormat
 
+
 class MealActivity : AppCompatActivity() {
 
     lateinit var edtMeal: EditText
@@ -42,6 +43,9 @@ class MealActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meal)
+
+        // 액션바에 '오늘의 식사' 문구 표시
+        supportActionBar?.title = "오늘의 식사"
 
         edtMeal = findViewById(R.id.edtMeal)
 
