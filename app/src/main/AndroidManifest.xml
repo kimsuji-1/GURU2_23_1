@@ -47,6 +47,7 @@
         <activity android:name=".ui.MealActivity" />
         <activity android:name=".ui.DiaryActivity" />
         <activity android:name=".ui.SchelduleActivity" />
+        <activity android:name=".ui.RegisterActivity"/>
     </application>
 
 </manifest>
