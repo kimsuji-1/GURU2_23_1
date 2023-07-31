@@ -26,12 +26,6 @@
             android:name=".ui.addActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MonthActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.CalendarActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.DayRecordActivity"
             android:exported="false" />
         <activity
