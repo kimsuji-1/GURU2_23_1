@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.guru2_23_1.databinding.ActivityLoginBinding
 import com.example.guru2_23_1.ui.DB.DBMember
+import com.example.guru2_23_1.ui.home.HomeFragment
 import com.example.guru2_23_1.ui.notifications.NotificationsFragment
 
 class LoginActivity : AppCompatActivity() {
@@ -32,6 +33,11 @@ class LoginActivity : AppCompatActivity() {
                         .show()
                     val intent = Intent(applicationContext, NotificationsFragment::class.java) //로그인 성공 창이동
                     startActivity(intent)
+                    //홈프래그먼트에 로그인 성공 보내기
+                    var HomeFragment = HomeFragment()
+                    var bundle = Bundle()
+                    bundle.putInt("login_check", 0)
+                    HomeFragment.arguments = bundle
                 }
                 else {
                     Toast.makeText(this@LoginActivity, "회원 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT)
