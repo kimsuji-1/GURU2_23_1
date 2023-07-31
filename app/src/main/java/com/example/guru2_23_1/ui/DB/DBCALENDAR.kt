@@ -20,6 +20,27 @@ class DBCALENDAR(
         onCreate(db)
     }
 
+    @SuppressLint("Range")
+    fun getToDosForDate(selectedDate: String): List<String> {
+        val todoList = mutableListOf<String>()
+
+        // 데이터베이스에서 해당 날짜에 저장된 ToDo 항목을 가져옴
+        val db = this.readableDatabase
+        val query = "SELECT TODO FROM DBCALENDARTABLE WHERE DATE = ? AND TODO != ''"
+        val cursor = db.rawQuery(query, arrayOf(selectedDate))
+
+        // 데이터를 읽어와서 todoList에 추가
+        while (cursor.moveToNext()) {
+            val todo = cursor.getString(cursor.getColumnIndex("TODO"))
+            todoList.add("ToDo: $todo")
+        }
+
+        cursor.close()
+        db.close()
+
+        return todoList
+    }
+
     fun addEventToDatabase(selectedDate: String, type: String, content: String) {
         val db = writableDatabase
 

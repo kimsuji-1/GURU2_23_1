@@ -16,7 +16,7 @@ import com.example.guru2_23_1.ui.menu.MypageActivity
 import com.example.guru2_23_1.ui.notifications.NotificationsFragment
 
 class MainActivity : AppCompatActivity() {
-    private val fl: FrameLayout by lazy{
+    private val fl: FrameLayout by lazy {
         findViewById(R.id.nav_host_fragment_activity_main)
     }
 
@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         val nav_view = findViewById<BottomNavigationView>(R.id.nav_view)
 
-        //supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment_activity_main, HomeFragment()).commit()
-
         nav_view.setOnItemSelectedListener { item ->
             changeFragment(
                 when (item.itemId) {
@@ -39,25 +37,20 @@ class MainActivity : AppCompatActivity() {
                         nav_view.itemTextColor =
                             ContextCompat.getColorStateList(this, R.color.black)
                         HomeFragment()
-                        //Respond to navigation item home click
                     }
-
                     R.id.navigation_calendar -> {
                         nav_view.itemIconTintList =
                             ContextCompat.getColorStateList(this, R.color.black)
                         nav_view.itemTextColor =
                             ContextCompat.getColorStateList(this, R.color.black)
-                        CalenderFragment()
-                        //Respond to navigation item calendar click
+                        CalenderFragment() // 'CalenderFragment()'로 수정
                     }
-
                     else -> {
                         nav_view.itemIconTintList =
                             ContextCompat.getColorStateList(this, R.color.black)
                         nav_view.itemTextColor =
                             ContextCompat.getColorStateList(this, R.color.black)
                         NotificationsFragment()
-                        //Respond to navigation item notifications click
                     }
                 }
             )
@@ -66,13 +59,12 @@ class MainActivity : AppCompatActivity() {
         nav_view.selectedItemId = R.id.navigation_home
     }
 
-    private fun changeFragment(fragment: Fragment){
+    private fun changeFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.nav_host_fragment_activity_main,fragment)
+            .replace(R.id.nav_host_fragment_activity_main, fragment)
             .commit()
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_personal_list, menu)
         return true

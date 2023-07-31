@@ -29,7 +29,7 @@ class MealActivity : AppCompatActivity() {
     lateinit var sqlDB: SQLiteDatabase
 
     lateinit var layout: LinearLayout
-//    lateinit var str_date: String
+    //    lateinit var str_date: String
     lateinit var dateLayout: LinearLayout
     lateinit var txtCurrentDate: TextView
     lateinit var str_meal: String
@@ -110,18 +110,11 @@ class MealActivity : AppCompatActivity() {
 
             var num: Int = 0
             while(cursor.moveToNext()) {
-//                str_date = cursor.getString(cursor.getColumnIndex("DATE")).toString()
                 str_meal = cursor.getString(cursor.getColumnIndex("MEAL")).toString()
 
                 var layout_item = LinearLayout(this)
                 layout_item.orientation = LinearLayout.VERTICAL
                 layout_item.id = num
-
-//                var tvDate = TextView(this)
-//                tvDate.text = str_date
-//                tvDate.textSize = 20f
-//                tvDate.setBackgroundColor(Color.LTGRAY)
-//                layout_item.addView(tvDate)
 
                 var tvMeal = TextView(this)
                 tvMeal.text = str_meal

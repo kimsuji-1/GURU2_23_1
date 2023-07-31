@@ -8,119 +8,209 @@
     android:backgroundTintMode="add"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- fragment_home.xml -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- topLayout -->
+    <LinearLayout
+        android:id="@+id/topLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- topLayout -->
-        <LinearLayout
-            android:id="@+id/topLayout"
+        <!-- month_btn -->
+        <Button
+            android:id="@+id/Month_btn"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:text="month"
+            android:textColor="#BDC0BA" />
+
+        <!-- Diary_btn -->
+        <Button
+            android:id="@+id/Diary_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:gravity="center"
+            android:text="DIARY"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:text="ADD TASK"
+            android:textColor="#BDC0BA" />
+
+    </LinearLayout>
+
+    <!-- prevMonthButton, dynamic_text_tv, nextMonthButton -->
+    <LinearLayout
+        android:id="@+id/year_mm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/topLayout">
+
+        <!-- prevMonthButton -->
+        <Button
+            android:id="@+id/prevMonthButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="&lt;"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- dynamic_text_tv -->
+        <TextView
+            android:id="@+id/dynamic_text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="YYYY.MM"
+            android:textSize="20sp" />
+
+        <!-- nextMonthButton -->
+        <Button
+            android:id="@+id/nextMonthButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="&gt;"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- calendar_container -->
+    <GridLayout
+        android:id="@+id/calendar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:columnCount="7"
+        app:layout_constraintTop_toBottomOf="@+id/year_mm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/schedule_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_container">
+
+        <TextView
+            android:id="@+id/headerTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="#F8DB84"
+            android:text="일정"
+            android:textSize="25dp"/>
 
-            <!-- today_btn -->
-            <Button
-                android:id="@+id/today_btn"
-                android:layout_width="120dp"
+        <ScrollView
+            android:id="@+id/text_Schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/schedule_list"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:text="month"
-                android:textColor="#BDC0BA" />
+                android:orientation="vertical"/>
+        </ScrollView>
 
-            <!-- month_year_tv -->
-            <Button
-                android:id="@+id/month_year_tv"
-                android:layout_width="wrap_content"
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/todo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/schedule_layout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F8DB84"
+            android:text="ToDo"
+            android:textSize="25dp"/>
+
+        <ScrollView
+            android:id="@+id/text_Todo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/todo_list"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00FFFFFF"
-                android:gravity="center"
-                android:text="DIARY"
-                android:textColor="#000000"
-                android:textSize="16sp" />
+                android:orientation="vertical"/>
 
-            <!-- add_btn -->
-            <Button
-                android:id="@+id/add_btn"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:text="ADD TASK"
-                android:textColor="#BDC0BA" />
+        </ScrollView>
 
-        </LinearLayout>
+    </LinearLayout>
 
-        <!-- prevMonthButton, dynamic_text_tv, nextMonthButton -->
+    <LinearLayout
+        android:id="@+id/tasklayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageButton
-            android:id="@+id/add_event_btn"
-            android:layout_width="70dp"
-            android:layout_height="71dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="72dp"
-            android:background="@drawable/add_event_btn_background"
+        <android.widget.Button
+            android:id="@+id/plus_btn"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="추가"
+            android:textColor="#000000"
+            android:background="@color/yellow"
+            android:textStyle="bold"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:layout_editor_absoluteX="7dp"
+            tools:layout_editor_absoluteY="480dp" />
 
-        <LinearLayout
-            android:id="@+id/year_mm"
-            android:layout_width="match_parent"
+        <android.widget.Button
+            android:id="@+id/update_btn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:background="@color/yellow"
             android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/topLayout">
+            android:text="수정"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="172dp"
+            tools:layout_editor_absoluteY="480dp" />
 
-            <!-- prevMonthButton -->
-            <Button
-                android:id="@+id/prevMonthButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="&lt;"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:outlineProvider="none"
-                android:foreground="?attr/selectableItemBackground"/>
-
-            <!-- dynamic_text_tv -->
-            <TextView
-                android:id="@+id/dynamic_text_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="YYYY.MM"
-                android:textSize="20sp" />
-
-            <!-- nextMonthButton -->
-            <Button
-                android:id="@+id/nextMonthButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="&gt;"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"  />
-
-        </LinearLayout>
-
-        <!-- calendar_container -->
-        <GridLayout
-            android:id="@+id/calendar_container"
-            android:layout_width="match_parent"
+        <android.widget.Button
+            android:id="@+id/check_btn"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:columnCount="7"
-            app:layout_constraintTop_toBottomOf="@+id/year_mm"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:background="@color/yellow"
+            android:text="조회"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="291dp"
+            tools:layout_editor_absoluteY="480dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
