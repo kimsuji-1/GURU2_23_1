@@ -174,7 +174,7 @@
             android:id="@+id/txt_Name_today"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="<~의 하루>"
+            android:text="&lt;~의 하루&gt;"
             android:textSize="20dp"/>
         <TextView
             android:id="@+id/txt_Weather_today"

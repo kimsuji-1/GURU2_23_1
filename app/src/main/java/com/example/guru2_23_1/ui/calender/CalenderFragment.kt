@@ -95,6 +95,41 @@ class CalenderFragment : Fragment() {
         //Hide the headerTextView initially (when there are no schedule items)
         headerTextView?.visibility = View.GONE
 
+//        writedaydiary(Calendar.getInstance())
+
+        DiaryrButton.setOnClickListener {
+            val todayCalendar = Calendar.getInstance()
+            currentYear = todayCalendar.get(Calendar.YEAR)
+            currentMonth = todayCalendar.get(Calendar.MONTH) + 1
+
+            prevMonthButton.visibility = View.GONE
+            nextMonthButton.visibility = View.GONE
+            plusButton.visibility = View.GONE
+            checkButton.visibility = View.GONE
+            updateButton.visibility = View.GONE
+
+            monthButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            addButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            DiaryrButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
+            // Display only the current month and year
+            dynamicTextView.text = "${currentYear}.${currentMonth}.${todayCalendar.get(Calendar.DAY_OF_MONTH)}"
+            // Clear the calendar container
+            calendarContainer.removeAllViews()
+
+//            //작성된 하루일기 보이게 하기
+//            writedaydiary(todayCalendar)
+
+            // Clear the schedule list
+            val scheduleListLayout = view?.findViewById<LinearLayout>(R.id.schedule_list)
+            scheduleListLayout?.removeAllViews()
+
+            // Hide the ToDo list
+            val todoLayout = view?.findViewById<LinearLayout>(R.id.todo_layout)
+            todoLayout?.visibility = View.GONE
+            headerTextView?.visibility = View.GONE
+        }
+
         addButton.setOnClickListener {
             calendarContainer.removeAllViews()
 
@@ -119,39 +154,6 @@ class CalenderFragment : Fragment() {
 
             // 수정된 부분: 사용자가 날짜를 선택하지 않은 경우 오늘 날짜에 대한 데이터를 표시
             showContentForDate(todayCalendar)
-        }
-
-        DiaryrButton.setOnClickListener {
-            val todayCalendar = Calendar.getInstance()
-            currentYear = todayCalendar.get(Calendar.YEAR)
-            currentMonth = todayCalendar.get(Calendar.MONTH) + 1
-
-            prevMonthButton.visibility = View.GONE
-            nextMonthButton.visibility = View.GONE
-            plusButton.visibility = View.GONE
-            checkButton.visibility = View.GONE
-            updateButton.visibility = View.GONE
-
-            monthButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
-            addButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
-            DiaryrButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-
-            // Display only the current month and year
-            dynamicTextView.text = "${currentYear}.${currentMonth}.${todayCalendar.get(Calendar.DAY_OF_MONTH)}"
-            // Clear the calendar container
-            calendarContainer.removeAllViews()
-
-            //작성된 하루일기 보이게 하기
-
-
-            // Clear the schedule list
-            val scheduleListLayout = view?.findViewById<LinearLayout>(R.id.schedule_list)
-            scheduleListLayout?.removeAllViews()
-
-            // Hide the ToDo list
-            val todoLayout = view?.findViewById<LinearLayout>(R.id.todo_layout)
-            todoLayout?.visibility = View.GONE
-            headerTextView?.visibility = View.GONE
         }
 
         monthButton.setOnClickListener {
@@ -717,94 +719,94 @@ class CalenderFragment : Fragment() {
         }
     }
 
-    @SuppressLint("Range")
-    private fun writedaydiary(todayCalendar: Calendar) {
-        //SQLite 사용
-        lateinit var dbManager_DBMeal: DBMeal
-        lateinit var dbManager_DBMember: DBMember
-        lateinit var dbManager_DBWEATHER: DBWEATHER
-        lateinit var dbManager_DBDiary: DBDiary
-        lateinit var dbManager_DBCalendar: DBCALENDAR
-        lateinit var sqlDB_DBMeal: SQLiteDatabase
-        lateinit var sqlDB_DBMember: SQLiteDatabase
-        lateinit var sqlDB_DBWEATHER: SQLiteDatabase
-        lateinit var sqlDB_DBDiary: SQLiteDatabase
-        lateinit var sqlDB_DBCalendar: SQLiteDatabase
-
-        //DB에서 읽어올 변수(cursor 사용해 읽어오기)
-        lateinit var db_name: String
-        lateinit var db_weather: String
-        lateinit var db_todo: String
-        lateinit var db_meal: String
-        var db_mood: Float = 0F
-        lateinit var db_diary: String
-
-        dbManager_DBMeal = DBMeal(this, "DBMeal", null, 1)
-        dbManager_DBDiary = DBDiary(this, "DBDiary", null, 1)
-        dbManager_DBCalendar = DBCALENDAR(requireContext())
-        dbManager_DBMember = DBMember(this, "DBMember", null, 1)
-        dbManager_DBWEATHER = DBWEATHER(this, "DBWEATHER", null, 1)
-
-        sqlDB_DBMeal = dbManager_DBMeal.readableDatabase
-        sqlDB_DBDiary = dbManager_DBDiary.readableDatabase
-        sqlDB_DBCalendar = dbManager_DBCalendar.readableDatabase
-        sqlDB_DBMember = dbManager_DBMember.readableDatabase
-        sqlDB_DBWEATHER = dbManager_DBWEATHER.readableDatabase
-
-        var cursor_DBMeal: Cursor
-        var cursor_DBDiary: Cursor
-        var cursor_DBCalendar: Cursor
-        var cursor_DBMember: Cursor
-        var cursor_DBWeather: Cursor
-
-        var date = "${currentYear}.${currentMonth}.${todayCalendar.get(Calendar.DAY_OF_MONTH)}"
-
-        cursor_DBMeal =
-            sqlDB_DBMeal.rawQuery("SELECT * FROM DBMEAL WHERE DATE = '" + date + "';", null)
-        cursor_DBDiary = sqlDB_DBDiary.rawQuery("SELECT * FROM DBDiary", null)
-        cursor_DBCalendar = sqlDB_DBCalendar.rawQuery("SELECT * FROM DBCalendar", null)
-        cursor_DBMember = sqlDB_DBMember.rawQuery("SELECT * FROM DBMember", null)
-        cursor_DBWeather = sqlDB_DBWEATHER.rawQuery("SELECT * FROM DBWEATHER WHERE DATE = '" + date + "';", null)
-        //닉네임
-        while (cursor_DBMember.moveToNext()) {
-            db_name = cursor_DBMember.getString(cursor_DBMember.getColumnIndex("NAME")).toString()
-            txt_Name_today.text = db_name
-        }
-        //날씨
-        while (cursor_DBWeather.moveToNext()) {
-            db_weather = cursor_DBWeather.getString(cursor_DBWeather.getColumnIndex("WEATHER")).toString()
-        }
-        //오늘 할 일
-        var num: Int = 0
-        while (cursor_DBDiary.moveToNext()) {
-            db_diary = cursor_DBDiary.getString(cursor_DBDiary.getColumnIndex("TODO")).toString()
-
-            var layout_item = LinearLayout(requireContext())
-            layout_item.removeAllViews()
-            layout_item.orientation = LinearLayout.VERTICAL
-            layout_item.id = num
-
-            var tvTodo = TextView(requireContext())
-            tvTodo.text = db_meal
-            tvTodo.textSize = 20f
-            layout_item.addView(tvTodo)
-
-            tododiary_list.addView(layout_item)
-            num++
-        }
-        //식사
-        while (cursor_DBMeal.moveToNext()) {
-            db_meal = cursor_DBMeal.getString(cursor_DBMeal.getColumnIndex("MEAL")).toString()
-        }
-        //별점&한줄일기
-        while (cursor_DBDiary.moveToNext()) {
-            db_mood = cursor_DBDiary.getFloat(cursor_DBDiary.getColumnIndex("MOOD"))
-            db_diary = cursor_DBDiary.getString(cursor_DBDiary.getColumnIndex("DIARY")).toString()
-        }
-    }
-
-
-    }
+//    @SuppressLint("Range")
+//    private fun writedaydiary(todayCalendar: Calendar) {
+//        //SQLite 사용
+//        lateinit var dbManager_DBMeal: DBMeal
+//        lateinit var dbManager_DBMember: DBMember
+//        lateinit var dbManager_DBWEATHER: DBWEATHER
+//        lateinit var dbManager_DBDiary: DBDiary
+//        lateinit var dbManager_DBCalendar: DBCALENDAR
+//        lateinit var sqlDB_DBMeal: SQLiteDatabase
+//        lateinit var sqlDB_DBMember: SQLiteDatabase
+//        lateinit var sqlDB_DBWEATHER: SQLiteDatabase
+//        lateinit var sqlDB_DBDiary: SQLiteDatabase
+//        lateinit var sqlDB_DBCalendar: SQLiteDatabase
+//
+//        //DB에서 읽어올 변수(cursor 사용해 읽어오기)
+//        lateinit var db_name: String
+//        lateinit var db_weather: String
+//        lateinit var db_todo: String
+//        lateinit var db_meal: String
+//        var db_mood: Float = 0F
+//        lateinit var db_diary: String
+//
+//        dbManager_DBMeal = DBMeal(requireContext(), "DBMeal", null, 1)
+//        dbManager_DBDiary = DBDiary(requireContext(), "DBDiary", null, 1)
+//        dbManager_DBCalendar = DBCALENDAR(requireContext())
+//        dbManager_DBMember = DBMember(requireContext(), "DBMember", null, 1)
+//        dbManager_DBWEATHER = DBWEATHER(requireContext(), "DBWEATHER", null, 1)
+//
+//        sqlDB_DBMeal = dbManager_DBMeal.readableDatabase
+//        sqlDB_DBDiary = dbManager_DBDiary.readableDatabase
+//        sqlDB_DBCalendar = dbManager_DBCalendar.readableDatabase
+//        sqlDB_DBMember = dbManager_DBMember.readableDatabase
+//        sqlDB_DBWEATHER = dbManager_DBWEATHER.readableDatabase
+//
+//        var cursor_DBMeal: Cursor
+//        var cursor_DBDiary: Cursor
+//        var cursor_DBCalendar: Cursor
+//        var cursor_DBMember: Cursor
+//        var cursor_DBWeather: Cursor
+//
+//        var date = "${currentYear}.${currentMonth}.${todayCalendar.get(Calendar.DAY_OF_MONTH)}"
+//
+//        cursor_DBMeal = sqlDB_DBMeal.rawQuery("SELECT * FROM DBMEAL WHERE DATE = '" + date + "';", null)
+//        cursor_DBDiary = sqlDB_DBDiary.rawQuery("SELECT * FROM DBDiary", null)
+//        cursor_DBCalendar = sqlDB_DBCalendar.rawQuery("SELECT * FROM DBCalendar", null)
+//        cursor_DBMember = sqlDB_DBMember.rawQuery("SELECT * FROM DBMember", null)
+//        cursor_DBWeather = sqlDB_DBWEATHER.rawQuery("SELECT * FROM DBWEATHER WHERE DATE = '" + date + "';", null)
+//
+//        //닉네임
+//        while (cursor_DBMember.moveToNext()) {
+//            db_name = cursor_DBMember.getString(cursor_DBMember.getColumnIndex("NAME")).toString()
+//        }
+//
+//        // txt_Name_today 초기화 및 텍스트 설정
+//        val txt_Name_today = view?.findViewById<TextView>(R.id.txt_Name_today)
+//        txt_Name_today?.text = db_name
+//        //날씨
+//        while (cursor_DBWeather.moveToNext()) {
+//            db_weather = cursor_DBWeather.getString(cursor_DBWeather.getColumnIndex("WEATHER")).toString()
+//        }
+//        //오늘 할 일
+//        var num: Int = 0
+//        while (cursor_DBDiary.moveToNext()) {
+//            db_diary = cursor_DBDiary.getString(cursor_DBDiary.getColumnIndex("TODO")).toString()
+//
+//            var layout_item = LinearLayout(requireContext())
+//            layout_item.removeAllViews()
+//            layout_item.orientation = LinearLayout.VERTICAL
+//            layout_item.id = num
+//
+//            var tvTodo = TextView(requireContext())
+//            tvTodo.text = db_meal
+//            tvTodo.textSize = 20f
+//            layout_item.addView(tvTodo)
+//
+//            tododiary_list.addView(layout_item)
+//            num++
+//        }
+//        //식사
+//        while (cursor_DBMeal.moveToNext()) {
+//            db_meal = cursor_DBMeal.getString(cursor_DBMeal.getColumnIndex("MEAL")).toString()
+//        }
+//        //별점&한줄일기
+//        while (cursor_DBDiary.moveToNext()) {
+//            db_mood = cursor_DBDiary.getFloat(cursor_DBDiary.getColumnIndex("MOOD"))
+//            db_diary = cursor_DBDiary.getString(cursor_DBDiary.getColumnIndex("DIARY")).toString()
+//        }
+//    }
 
     companion object {
         @JvmStatic
