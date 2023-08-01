@@ -1,16 +1,14 @@
 package com.example.guru2_23_1.ui.DB
 
-import android.annotation.SuppressLint
-import android.content.ContentValues
-import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.google.firebase.firestore.auth.User
+import com.example.guru2_23_1.ui.calender.CalenderFragment
 
-class DBMember(context: Context,
-               name: String?,
-               factory: SQLiteDatabase.CursorFactory?,
-               version: Int) :
+class DBMember(
+    context: CalenderFragment,
+    name: String?,
+    factory: SQLiteDatabase.CursorFactory?,
+    version: Int) :
     SQLiteOpenHelper(context, "DBMEMBERTABLE", null, 1) {
     override fun onCreate(MyDB: SQLiteDatabase) {
         MyDB.execSQL("CREATE TABLE IF NOT EXISTS DBMEMBER (ID VARCHAR(20) PRIMARY KEY, PASSWORD FLOAT(5), NAME VARCHAR(20), REGION CHAR(20))")

@@ -1,13 +1,14 @@
 package com.example.guru2_23_1.ui.DB
 
-import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.guru2_23_1.ui.calender.CalenderFragment
 
-class DBDiary (context: Context,
-               name: String?,
-               factory: SQLiteDatabase.CursorFactory?,
-               version: Int
+class DBDiary(
+    context: CalenderFragment,
+    name: String?,
+    factory: SQLiteDatabase.CursorFactory?,
+    version: Int
     ): SQLiteOpenHelper(context, "DBDIARYTABLE", null, 1){
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL(
