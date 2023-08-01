@@ -1,7 +1,7 @@
 package com.example.guru2_23_1.ui.calender
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.Gravity
@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.LinearLayout
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -39,6 +40,14 @@ class CalenderFragment : Fragment() {
     private var eventList: List<String> = emptyList()
     private lateinit var scheduleListLayout: LinearLayout
 
+    lateinit var today_diary: LinearLayout
+    lateinit var txt_Name_today: String
+    lateinit var txt_Weather_today: String
+    lateinit var tododiary_list: LinearLayout
+    lateinit var txt_meal_today: String
+    lateinit var txt_mood_today: String
+    lateinit var txt_diary_today: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,6 +59,13 @@ class CalenderFragment : Fragment() {
         checkButton = view.findViewById(R.id.check_btn)
         updateButton = view.findViewById(R.id.update_btn)
         scheduleListLayout = view.findViewById(R.id.schedule_list)
+        today_diary = view.findViewById(R.id.today_diary)
+        txt_Name_today = view.findViewById(R.id.txt_Name_today)
+        txt_Weather_today = view.findViewById(R.id.txt_Weather_today)
+        tododiary_list = view.findViewById(R.id.tododiary_list)
+        txt_meal_today = view.findViewById(R.id.txt_meal_today)
+        txt_mood_today = view.findViewById(R.id.txt_mood_today)
+        txt_diary_today = view.findViewById(R.id.txt_diary_today)
 
         val monthButton = view.findViewById<Button>(R.id.Month_btn)
         val addButton = view.findViewById<Button>(R.id.add_btn)
@@ -686,7 +702,8 @@ class CalenderFragment : Fragment() {
         }
     }
 
-    private fun writedaydiary():String{
+    private fun writedaydiary() {
+        //SQLite 사용
         lateinit var dbManager_DBMeal: DBMeal
         lateinit var dbManager_DBMember: DBMember
         lateinit var dbManager_DBWEATHER: DBWEATHER
@@ -698,14 +715,13 @@ class CalenderFragment : Fragment() {
         lateinit var sqlDB_DBDiary: SQLiteDatabase
         lateinit var sqlDB_DBCalendar: SQLiteDatabase
 
-        lateinit var name: String
-        lateinit var weather: String
-        //이것들을 리스트로 출력하는게 맞나,,?
-//        lateinit var todo_list : List<todo>
-//        lateinit var schedule_list: List<Schedule>
-//        lateinit var meal_list: List<meal>
-        var mood: Float =0F
-        lateinit var diary: String
+        //DB에서 읽어올 변수(cursor 사용해 읽어오기)
+        lateinit var db_name: String
+        lateinit var db_weather: String
+        lateinit var db_todo:String
+        lateinit var db_meal: String
+        var db_mood: Float = 0F
+        lateinit var db_diary: String
 
         dbManager_DBMeal = DBMeal(this, "DBMeal", null, 1)
         dbManager_DBDiary = DBDiary(this, "DBDiary", null, 1)
@@ -718,7 +734,6 @@ class CalenderFragment : Fragment() {
         sqlDB_DBCalendar = dbManager_DBCalendar.readableDatabase
         sqlDB_DBMember = dbManager_DBMember.readableDatabase
         sqlDB_DBWEATHER = dbManager_DBWEATHER.readableDatabase
-
     }
 
     companion object {
