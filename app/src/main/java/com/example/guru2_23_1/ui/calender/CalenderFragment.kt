@@ -1,7 +1,9 @@
 package com.example.guru2_23_1.ui.calender
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.Gravity
@@ -61,12 +63,12 @@ class CalenderFragment : Fragment() {
         scheduleListLayout = view.findViewById(R.id.schedule_list)
         //하루일기 작성 변수
         today_diary = view.findViewById(R.id.today_diary)
-        txt_Name_today = view.findViewById(R.id.txt_Name_today)
-        txt_Weather_today = view.findViewById(R.id.txt_Weather_today)
+        txt_Name_today = view.findViewById<TextView>(R.id.txt_Name_today).toString()
+        txt_Weather_today = view.findViewById<TextView>(R.id.txt_Weather_today).toString()
         tododiary_list = view.findViewById(R.id.tododiary_list)
-        txt_meal_today = view.findViewById(R.id.txt_meal_today)
-        txt_mood_today = view.findViewById(R.id.txt_mood_today)
-        txt_diary_today = view.findViewById(R.id.txt_diary_today)
+        txt_meal_today = view.findViewById<TextView>(R.id.txt_meal_today).toString()
+        txt_mood_today = view.findViewById<TextView>(R.id.txt_mood_today).toString()
+        txt_diary_today = view.findViewById<TextView>(R.id.txt_diary_today).toString()
 
         val monthButton = view.findViewById<Button>(R.id.Month_btn)
         val addButton = view.findViewById<Button>(R.id.add_btn)
@@ -715,7 +717,8 @@ class CalenderFragment : Fragment() {
         }
     }
 
-    private fun writedaydiary() {
+    @SuppressLint("Range")
+    private fun writedaydiary(todayCalendar: Calendar) {
         //SQLite 사용
         lateinit var dbManager_DBMeal: DBMeal
         lateinit var dbManager_DBMember: DBMember
@@ -731,7 +734,7 @@ class CalenderFragment : Fragment() {
         //DB에서 읽어올 변수(cursor 사용해 읽어오기)
         lateinit var db_name: String
         lateinit var db_weather: String
-        lateinit var db_todo:String
+        lateinit var db_todo: String
         lateinit var db_meal: String
         var db_mood: Float = 0F
         lateinit var db_diary: String
@@ -747,6 +750,60 @@ class CalenderFragment : Fragment() {
         sqlDB_DBCalendar = dbManager_DBCalendar.readableDatabase
         sqlDB_DBMember = dbManager_DBMember.readableDatabase
         sqlDB_DBWEATHER = dbManager_DBWEATHER.readableDatabase
+
+        var cursor_DBMeal: Cursor
+        var cursor_DBDiary: Cursor
+        var cursor_DBCalendar: Cursor
+        var cursor_DBMember: Cursor
+        var cursor_DBWeather: Cursor
+
+        var date = "${currentYear}.${currentMonth}.${todayCalendar.get(Calendar.DAY_OF_MONTH)}"
+
+        cursor_DBMeal =
+            sqlDB_DBMeal.rawQuery("SELECT * FROM DBMEAL WHERE DATE = '" + date + "';", null)
+        cursor_DBDiary = sqlDB_DBDiary.rawQuery("SELECT * FROM DBDiary", null)
+        cursor_DBCalendar = sqlDB_DBCalendar.rawQuery("SELECT * FROM DBCalendar", null)
+        cursor_DBMember = sqlDB_DBMember.rawQuery("SELECT * FROM DBMember", null)
+        cursor_DBWeather = sqlDB_DBWEATHER.rawQuery("SELECT * FROM DBWEATHER WHERE DATE = '" + date + "';", null)
+        //닉네임
+        while (cursor_DBMember.moveToNext()) {
+            db_name = cursor_DBMember.getString(cursor_DBMember.getColumnIndex("NAME")).toString()
+            txt_Name_today.text = db_name
+        }
+        //날씨
+        while (cursor_DBWeather.moveToNext()) {
+            db_weather = cursor_DBWeather.getString(cursor_DBWeather.getColumnIndex("WEATHER")).toString()
+        }
+        //오늘 할 일
+        var num: Int = 0
+        while (cursor_DBDiary.moveToNext()) {
+            db_diary = cursor_DBDiary.getString(cursor_DBDiary.getColumnIndex("TODO")).toString()
+
+            var layout_item = LinearLayout(requireContext())
+            layout_item.removeAllViews()
+            layout_item.orientation = LinearLayout.VERTICAL
+            layout_item.id = num
+
+            var tvTodo = TextView(requireContext())
+            tvTodo.text = db_meal
+            tvTodo.textSize = 20f
+            layout_item.addView(tvTodo)
+
+            tododiary_list.addView(layout_item)
+            num++
+        }
+        //식사
+        while (cursor_DBMeal.moveToNext()) {
+            db_meal = cursor_DBMeal.getString(cursor_DBMeal.getColumnIndex("MEAL")).toString()
+        }
+        //별점&한줄일기
+        while (cursor_DBDiary.moveToNext()) {
+            db_mood = cursor_DBDiary.getFloat(cursor_DBDiary.getColumnIndex("MOOD"))
+            db_diary = cursor_DBDiary.getString(cursor_DBDiary.getColumnIndex("DIARY")).toString()
+        }
+    }
+
+
     }
 
     companion object {
