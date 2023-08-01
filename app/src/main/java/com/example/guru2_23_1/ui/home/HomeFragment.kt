@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.guru2_23_1.R
 import com.example.guru2_23_1.databinding.FragmentHomeBinding
+import com.example.guru2_23_1.databinding.FragmentNotificationsBinding
 import com.example.guru2_23_1.ui.LoginActivity
+import com.example.guru2_23_1.ui.MealActivity
 import com.example.guru2_23_1.ui.RegisterActivity
 import java.sql.Types.NULL
 
@@ -38,7 +40,7 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-    }
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

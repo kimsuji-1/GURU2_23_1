@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
                     //홈프래그먼트에 로그인 성공 보내기
                     var HomeFragment = HomeFragment()
                     var bundle = Bundle()
-                    bundle.putInt("login_check", 1)
+                    bundle.putInt("login_check", 0)
                     HomeFragment.arguments = bundle
                 }
                 else {

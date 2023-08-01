@@ -63,7 +63,7 @@ class MealActivity : AppCompatActivity() {
             Toast_NoMeal()
             sqlDB = dbManager.writableDatabase
 
-            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ("+ date + ", '"+edtMeal.text.toString()+"');")
+            sqlDB.execSQL("INSERT INTO DBMEAL VALUES ('"+ date + "', '"+edtMeal.text.toString()+"');")
             sqlDB.close()
             Toast.makeText(applicationContext, "아침 식사 기록 완료!", Toast.LENGTH_SHORT).show()
         }
@@ -113,6 +113,7 @@ class MealActivity : AppCompatActivity() {
                 str_meal = cursor.getString(cursor.getColumnIndex("MEAL")).toString()
 
                 var layout_item = LinearLayout(this)
+                layout_item.removeAllViews()
                 layout_item.orientation = LinearLayout.VERTICAL
                 layout_item.id = num
 

@@ -10,21 +10,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-<!--                <androidx.appcompat.widget.Toolbar-->
-<!--                    android:id="@+id/custom_toolbar"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="?attr/actionBarSize"-->
-<!--                    android:background="@drawable/rounded_corner"-->
-<!--                    app:title="하루 작성"-->
-<!--                    app:titleTextColor="@color/white">-->
-<!--                </androidx.appcompat.widget.Toolbar>-->
+        <!--                <androidx.appcompat.widget.Toolbar-->
+        <!--                    android:id="@+id/custom_toolbar"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="?attr/actionBarSize"-->
+        <!--                    android:background="@drawable/rounded_corner"-->
+        <!--                    app:title="하루 작성"-->
+        <!--                    app:titleTextColor="@color/white">-->
+        <!--                </androidx.appcompat.widget.Toolbar>-->
 
 
         <TextView
@@ -38,7 +36,6 @@
             android:text="웃모찌에게 하루를 알려줘!"
             android:textSize="18sp"
             android:textStyle="bold" />
-
 
         <android.widget.Button
             android:id="@+id/button_meal"
