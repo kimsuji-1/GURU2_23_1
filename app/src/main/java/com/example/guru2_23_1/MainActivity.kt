@@ -24,6 +24,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val login_check = intent.getIntExtra("login_check", -1)
+        val homeFragment = HomeFragment()
+        val bundle = Bundle()
+        bundle.putInt("login_check", login_check)
+        homeFragment.arguments = bundle
+
         getSupportActionBar()?.show()
 
         val nav_view = findViewById<BottomNavigationView>(R.id.nav_view)
@@ -36,14 +42,14 @@ class MainActivity : AppCompatActivity() {
                             ContextCompat.getColorStateList(this, R.color.black)
                         nav_view.itemTextColor =
                             ContextCompat.getColorStateList(this, R.color.black)
-                        HomeFragment()
+                        homeFragment // 변경된 코드
                     }
                     R.id.navigation_calendar -> {
                         nav_view.itemIconTintList =
                             ContextCompat.getColorStateList(this, R.color.black)
                         nav_view.itemTextColor =
                             ContextCompat.getColorStateList(this, R.color.black)
-                        CalenderFragment() // 'CalenderFragment()'로 수정
+                        CalenderFragment()
                     }
                     else -> {
                         nav_view.itemIconTintList =
@@ -65,13 +71,14 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.nav_host_fragment_activity_main, fragment)
             .commit()
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_personal_list, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item?.itemId) {
+        when (item?.itemId) {
             R.id.action_mypage -> {
                 val intent = Intent(this, MypageActivity::class.java)
                 startActivity(intent)

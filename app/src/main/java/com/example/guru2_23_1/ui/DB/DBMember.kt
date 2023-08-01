@@ -24,7 +24,7 @@ class DBMember(context: Context,
         val MyDB = this.writableDatabase
         var res = true
         val cursor = MyDB.rawQuery(
-            "Select * from DBMEMBER where usermame = ? and password = ?",
+            "Select * from DBMEMBER where ID = ? and password = ?",
             arrayOf(username, password)
         )
         if (cursor.count <= 0) res= false

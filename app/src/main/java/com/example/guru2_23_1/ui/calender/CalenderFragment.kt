@@ -59,6 +59,18 @@ class CalenderFragment : Fragment() {
         val todoLayout = view?.findViewById<LinearLayout>(R.id.todo_layout)
         val todoListLayout = view?.findViewById<LinearLayout>(R.id.todo_list)
 
+        // 현재 시스템 날짜로 캘린더 초기화
+        val todayCalendar = Calendar.getInstance()
+        currentYear = todayCalendar.get(Calendar.YEAR)
+        currentMonth = todayCalendar.get(Calendar.MONTH) + 1
+
+        dynamicTextView.text = "${currentYear}.${currentMonth}.${todayCalendar.get(Calendar.DAY_OF_MONTH)}"
+
+        selectedDate = todayCalendar
+
+        // Show the schedule list for the selected date
+        showScheduleForDate(selectedDate)
+
         //Hide the headerTextView initially (when there are no schedule items)
         headerTextView?.visibility = View.GONE
 

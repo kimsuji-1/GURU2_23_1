@@ -47,5 +47,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
     implementation 'androidx.annotation:annotation:1.6.0'
+    implementation 'com.google.firebase:firebase-core:19.0.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.7.0'
 }
