@@ -35,6 +35,7 @@ class CalenderFragment : Fragment() {
     private lateinit var checkButton: Button
     private lateinit var updateButton: Button
     private var eventList: List<String> = emptyList()
+    private lateinit var scheduleListLayout: LinearLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +47,7 @@ class CalenderFragment : Fragment() {
         plusButton = view.findViewById(R.id.plus_btn)
         checkButton = view.findViewById(R.id.check_btn)
         updateButton = view.findViewById(R.id.update_btn)
+        scheduleListLayout = view.findViewById(R.id.schedule_list)
 
         val monthButton = view.findViewById<Button>(R.id.Month_btn)
         val addButton = view.findViewById<Button>(R.id.add_btn)
@@ -54,7 +56,7 @@ class CalenderFragment : Fragment() {
         val nextMonthButton = view.findViewById<Button>(R.id.nextMonthButton)
         val headerTextView = view?.findViewById<TextView>(R.id.headerTextView)
 
-        // Hide the headerTextView initially (when there are no schedule items)
+        //Hide the headerTextView initially (when there are no schedule items)
         headerTextView?.visibility = View.GONE
 
         addButton.setOnClickListener {
@@ -126,18 +128,22 @@ class CalenderFragment : Fragment() {
 
             prevMonthButton.visibility = View.VISIBLE
             nextMonthButton.visibility = View.VISIBLE
+            plusButton.visibility = View.GONE
+            checkButton.visibility = View.GONE
+            updateButton.visibility = View.GONE
 
             // Show the schedule list for the selected date
             showScheduleForDate(selectedDate)
             // Since it's the month view, hide the ToDo list for the selected date
             drawCalendar(currentYear, currentMonth)
             hideToDoForDate()
+            headerTextView?.visibility = View.VISIBLE
         }
 
         plusButton.setOnClickListener {
-            // "추가" 버튼을 누르면 다이얼로그를 보여주는 함수 호출
-            showAddEventDialogInHomeFragment(selectedDate)
+            showContentForDate(selectedDate)
         }
+
 
         checkButton.setOnClickListener {
             // Call the function to show the content for the selected date
@@ -305,44 +311,36 @@ class CalenderFragment : Fragment() {
         val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
         val selectedDateString = dateFormat.format(selectedDate.time)
 
-        // 다이얼로그를 위한 custom layout
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_event, null)
-        val typeRadioGroup = dialogView.findViewById<RadioGroup>(R.id.typeRadioGroup)
-        val contentEditText = dialogView.findViewById<EditText>(R.id.contentEditText)
-        val addButton = dialogView.findViewById<Button>(R.id.addButton)
-        val addedContentTextView = dialogView.findViewById<TextView>(R.id.addedContentTextView)
+        // DBHelper를 사용하여 해당 날짜의 ToDo 리스트를 가져옵니다.
+        val dbHelper = DBCALENDAR(requireContext())
+        val todoList = dbHelper.getToDosForDate(selectedDateString)
 
-        // 다이얼로그 생성
-        val builder = AlertDialog.Builder(requireContext())
-            .setTitle("Schedule, ToDo 추가")
-            .setView(dialogView)
+        // 스케줄 목록을 숨김
+        val scheduleLayout = view?.findViewById<LinearLayout>(R.id.schedule_layout)
+        scheduleLayout?.visibility = View.GONE
 
-        val alertDialog = builder.create()
-        alertDialog.show()
+        // 스케줄 리스트를 표시하는 LinearLayout
+        val scheduleListLayout = view?.findViewById<LinearLayout>(R.id.schedule_list)
+        scheduleListLayout?.removeAllViews()
 
-        // '추가' 버튼 클릭 시 이벤트 처리
-        addButton.setOnClickListener {
-            val type = if (typeRadioGroup.checkedRadioButtonId == R.id.scheduleRadioButton) {
-                "Schedule"
-            } else {
-                "ToDo"
+        // 투두 목록을 표시하는 LinearLayout
+        val todoLayout = view?.findViewById<LinearLayout>(R.id.todo_layout)
+        todoLayout?.visibility = View.VISIBLE
+
+        // 투두 리스트를 표시하는 LinearLayout
+        val todoListLayout = view?.findViewById<LinearLayout>(R.id.todo_list)
+        todoListLayout?.removeAllViews()
+
+        if (todoList.isNotEmpty()) { // ToDo가 있는 경우에만 처리
+            for (todo in todoList) {
+                val todoTextView = TextView(requireContext())
+                todoTextView.text = todo
+                todoListLayout?.addView(todoTextView)
             }
-
-            val content = contentEditText.text.toString()
-
-            // DBHelper를 사용하여 일정 또는 투두 리스트를 SQLite DB에 추가
-            val dbHelper = DBCALENDAR(requireContext())
-            dbHelper.addEventToDatabase(selectedDateString, type, content)
-
-            // 추가한 내용을 TextView에 업데이트
-            addedContentTextView.text = "$type: $content"
-            addedContentTextView.visibility = View.VISIBLE
-
-            // 다이얼로그 닫기 (또는 이 부분을 원하는 타이밍에 닫으세요)
-            alertDialog.dismiss()
-
-            // 저장된 내용을 해당 날짜 아래에 보여주는 함수 호출
-            showContentForDate(selectedDate)
+        } else {
+            val noTodoTextView = TextView(requireContext())
+            noTodoTextView.text = "No ToDo for this date."
+            todoListLayout?.addView(noTodoTextView)
         }
     }
 
@@ -350,6 +348,44 @@ class CalenderFragment : Fragment() {
         // DBHelper를 사용하여 데이터베이스에 해당 날짜의 일정 또는 투두를 추가
         val dbHelper = DBCALENDAR(requireContext())
         dbHelper.addEventToDatabase(selectedDate, type, content)
+    }
+    // ToDo 리스트를 표시하는 함수를 추가합니다.
+    private fun showToDoListForDate(selectedDate: Calendar) {
+        // 선택한 날짜로 SQLite DB에서 해당 날짜에 저장된 ToDo 리스트를 가져옵니다.
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+        val selectedDateString = dateFormat.format(selectedDate.time)
+
+        // DBHelper를 사용하여 해당 날짜의 ToDo 리스트를 가져옵니다.
+        val dbHelper = DBCALENDAR(requireContext())
+        val todoList = dbHelper.getToDosForDate(selectedDateString)
+
+        // 스케줄 목록을 숨김
+        val scheduleLayout = view?.findViewById<LinearLayout>(R.id.schedule_layout)
+        scheduleLayout?.visibility = View.GONE
+
+        // 스케줄 리스트를 표시하는 LinearLayout
+        val scheduleListLayout = view?.findViewById<LinearLayout>(R.id.schedule_list)
+        scheduleListLayout?.removeAllViews()
+
+        // 투두 목록을 표시하는 LinearLayout
+        val todoLayout = view?.findViewById<LinearLayout>(R.id.todo_layout)
+        todoLayout?.visibility = View.VISIBLE
+
+        // 투두 리스트를 표시하는 LinearLayout
+        val todoListLayout = view?.findViewById<LinearLayout>(R.id.todo_list)
+        todoListLayout?.removeAllViews()
+
+        if (todoList.isNotEmpty()) { // ToDo가 있는 경우에만 처리
+            for (todo in todoList) {
+                val todoTextView = TextView(requireContext())
+                todoTextView.text = todo
+                todoListLayout?.addView(todoTextView)
+            }
+        } else {
+            val noTodoTextView = TextView(requireContext())
+            noTodoTextView.text = "No Todo for this date."
+            todoListLayout?.addView(noTodoTextView)
+        }
     }
 
     private fun showContentForDate(selectedDate: Calendar) {
@@ -361,23 +397,21 @@ class CalenderFragment : Fragment() {
         val dbHelper = DBCALENDAR(requireContext())
         val eventList = dbHelper.getEventsForDate(selectedDateString)
 
-        // 가져온 이벤트를 캘린더 아래에 표시합니다.
-        val dateTextView = TextView(requireContext())
-        dateTextView.text = selectedDateString
-
         // 기존에 있는 날짜 데이터를 모두 제거
         calendarContainer.removeAllViews()
 
         // 선택한 날짜와 해당 날짜의 이벤트 데이터를 새로 표시
+        val dateTextView = TextView(requireContext())
+        dateTextView.text = selectedDateString
         calendarContainer.addView(dateTextView)
+
+        // Show the headerTextView regardless of schedule items
+        val headerTextView = view?.findViewById<TextView>(R.id.headerTextView)
+        headerTextView?.visibility = View.VISIBLE
 
         // 스케줄 목록을 표시하는 LinearLayout
         val scheduleLayout = view?.findViewById<LinearLayout>(R.id.schedule_layout)
         scheduleLayout?.visibility = View.VISIBLE
-
-        // 스케줄 리스트를 표시하는 LinearLayout
-        val scheduleListLayout = view?.findViewById<LinearLayout>(R.id.schedule_list)
-        scheduleListLayout?.removeAllViews()
 
         // Separate events into "Schedule" and "ToDo" items
         val scheduleList = mutableListOf<String>()
@@ -392,6 +426,9 @@ class CalenderFragment : Fragment() {
         }
 
         // Display Schedule items
+        val scheduleListLayout = view?.findViewById<LinearLayout>(R.id.schedule_list)
+        scheduleListLayout?.removeAllViews()
+
         if (scheduleList.isNotEmpty()) {
             for (event in scheduleList) {
                 val eventTextView = TextView(requireContext())
@@ -399,17 +436,30 @@ class CalenderFragment : Fragment() {
                 scheduleListLayout?.addView(eventTextView)
             }
         } else {
+            // 스케줄이 없는 경우에도 "No schedule for this date." 문구를 표시
             val noEventTextView = TextView(requireContext())
             noEventTextView.text = "No schedule for this date."
             scheduleListLayout?.addView(noEventTextView)
         }
-
-        val headerTextView = view?.findViewById<TextView>(R.id.headerTextView)
-        headerTextView?.visibility = if (scheduleList.isEmpty()) View.GONE else View.VISIBLE
-
-        // Hide ToDo items
+        // 투두 목록을 표시하는 LinearLayout
         val todoLayout = view?.findViewById<LinearLayout>(R.id.todo_layout)
-        todoLayout?.visibility = View.GONE
+        todoLayout?.visibility = View.VISIBLE
+
+        // 투두 리스트를 표시하는 LinearLayout
+        val todoListLayout = view?.findViewById<LinearLayout>(R.id.todo_list)
+        todoListLayout?.removeAllViews()
+
+        if (todoList.isNotEmpty()) { // ToDo가 있는 경우에만 처리
+            for (todo in todoList) {
+                val todoTextView = TextView(requireContext())
+                todoTextView.text = todo
+                todoListLayout?.addView(todoTextView)
+            }
+        } else {
+            val noTodoTextView = TextView(requireContext())
+            noTodoTextView.text = "No Todo for this date."
+            todoListLayout?.addView(noTodoTextView)
+        }
     }
     private fun onDateClicked(year: Int, month: Int, day: Int) {
         val clickedDayTextView = getDayTextViewByDate(day)
@@ -495,29 +545,48 @@ class CalenderFragment : Fragment() {
         dateTextView.text = selectedDateString
         calendarContainer.addView(dateTextView)
 
-        // Only show the schedule list
+        // Show the headerTextView regardless of schedule items
+        val headerTextView = view?.findViewById<TextView>(R.id.headerTextView)
+        headerTextView?.visibility = View.VISIBLE
+
+        // 스케줄 목록을 표시하는 LinearLayout
+        val scheduleLayout = view?.findViewById<LinearLayout>(R.id.schedule_layout)
+        scheduleLayout?.visibility = View.VISIBLE
+
+        // Separate events into "Schedule" and "ToDo" items
+        val scheduleList = mutableListOf<String>()
+        val todoList = mutableListOf<String>()
+
+        for (event in eventList) {
+            if (event.startsWith("Schedule:")) {
+                scheduleList.add(event.substringAfter("Schedule:").trim())
+            } else if (event.startsWith("ToDo:")) {
+                todoList.add(event.substringAfter("ToDo:").trim())
+            }
+        }
+
+        // Display Schedule items
         val scheduleListLayout = view?.findViewById<LinearLayout>(R.id.schedule_list)
         scheduleListLayout?.removeAllViews()
 
-        if (eventList.isNotEmpty()) { // 스케줄이 있는 경우에만 처리
-            // 이벤트가 있는 경우 스케줄 목록에 추가
-            for (event in eventList) {
-                if (event.startsWith("Schedule:")) {
-                    val eventTextView = TextView(requireContext())
-                    eventTextView.text = event.substringAfter("Schedule:").trim()
-                    scheduleListLayout?.addView(eventTextView)
-                }
+        if (scheduleList.isNotEmpty()) {
+            for (event in scheduleList) {
+                val eventTextView = TextView(requireContext())
+                eventTextView.text = event
+                scheduleListLayout?.addView(eventTextView)
             }
         } else {
-            // 스케줄이 없는 경우 빈 TextView를 추가하여 아무 내용도 표시하지 않음
+            // 스케줄이 없는 경우에도 "No schedule for this date." 문구를 표시
             val noEventTextView = TextView(requireContext())
             noEventTextView.text = "No schedule for this date."
             scheduleListLayout?.addView(noEventTextView)
         }
 
-        // Hide ToDo list
-        hideToDoForDate()
+        // Hide ToDo items
+        val todoLayout = view?.findViewById<LinearLayout>(R.id.todo_layout)
+        todoLayout?.visibility = View.GONE
     }
+
     private fun hideToDoForDate() {
         // 투두 목록을 표시하는 LinearLayout
         val todoLayout = view?.findViewById<LinearLayout>(R.id.todo_layout)

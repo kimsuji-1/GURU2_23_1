@@ -21,21 +21,29 @@ import org.w3c.dom.Text
 
 class RegisterActivity : AppCompatActivity() {
 
-    var inputRegisterBtn: Button = findViewById(R.id.inputRegisterBtn)
-    var edt_Id: EditText = findViewById(R.id.ID)
-    var edt_Password: EditText = findViewById(R.id.PASSWORD)
-    var edt_reInputPassword: EditText = findViewById(R.id.reInputPassword)
-    var edt_Name: EditText = findViewById(R.id.NAME)
-    var region_spinner: Spinner = findViewById(R.id.region_spinner)
+    lateinit var inputRegisterBtn: Button
+    lateinit var edt_Id: EditText
+    lateinit var edt_Password: EditText
+    lateinit var edt_reInputPassword: EditText
+    lateinit var edt_Name: EditText
+    lateinit var region_spinner: Spinner
+    lateinit var dbManager: DBMember
+    lateinit var sqlitedb: SQLiteDatabase
 
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_register) // 액티비티의 레이아웃 설정
 
-        lateinit var dbManager: DBMember
-        lateinit var sqlitedb: SQLiteDatabase
+        // findViewById를 onCreate 메서드 내에서 호출
+        inputRegisterBtn = findViewById(R.id.inputRegisterBtn)
+        edt_Id = findViewById(R.id.ID)
+        edt_Password = findViewById(R.id.PASSWORD)
+        edt_reInputPassword = findViewById(R.id.reInputPassword)
+        edt_Name = findViewById(R.id.NAME)
+        region_spinner = findViewById(R.id.region_spinner)
 
-        dbManager = DBMember(this, "DBMEMBER", null, 1)
+        dbManager = DBMember(this, "DBMember", null, 1)
         sqlitedb = dbManager.writableDatabase
 
         region_spinner.adapter = ArrayAdapter.createFromResource(
@@ -71,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
                         if (floatpass == floatrepass) {                     //비밀번호와 비밀번호확인이 일치
                             //이미 아이디가 있다면?
                             var cursor: Cursor
-                            cursor = sqlitedb.rawQuery("SELECT ID FROM DBMEMBER;", null)
+                            cursor = sqlitedb.rawQuery("SELECT ID FROM DBMember;", null)
                             while(cursor.moveToNext()) {
                                 var id = cursor.getString(cursor.getColumnIndex("ID"))
                                 if (id.toString() == strID) {
@@ -79,7 +87,7 @@ class RegisterActivity : AppCompatActivity() {
                                 }
                             }
                             sqlitedb.execSQL(
-                                "INSERT INTO DBMEMBER VALUES('" + strID + "', " + floatpass + ", '" + strName + "', '" + spinner_array[position] + "')"
+                                "INSERT INTO DBMember VALUES('" + strID + "', " + floatpass + ", '" + strName + "', '" + spinner_array[position] + "')"
                             )                       //DBMEMBER에 저장
                             Toast.makeText(applicationContext, "가입 완료!", Toast.LENGTH_SHORT).show()
                         }
