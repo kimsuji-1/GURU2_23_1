@@ -1,10 +1,11 @@
 package com.example.guru2_23_1.ui.DB
 
-import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.guru2_23_1.ui.calender.CalenderFragment
 
-class DBWEATHER (context: Context,
+class DBWEATHER(
+    context: CalenderFragment,
     name: String?,
     factory: SQLiteDatabase.CursorFactory?,
     version: Int

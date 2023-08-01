@@ -116,17 +116,18 @@
             android:layout_height="wrap_content"
             android:background="#F8DB84"
             android:text="일정"
-            android:textSize="25dp"/>
+            android:textSize="25dp" />
 
         <ScrollView
             android:id="@+id/text_Schedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/schedule_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
         </ScrollView>
 
     </LinearLayout>
@@ -145,7 +146,7 @@
             android:layout_height="wrap_content"
             android:background="#F8DB84"
             android:text="ToDo"
-            android:textSize="25dp"/>
+            android:textSize="25dp" />
 
         <ScrollView
             android:id="@+id/text_Todo"
@@ -156,11 +157,78 @@
                 android:id="@+id/todo_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
 
         </ScrollView>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/today_diary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/year_mm"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_Name_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="<~의 하루>"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/txt_Weather_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오늘의 날씨: "
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/txt_todo_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오늘 나의 할 일은 "
+            android:textSize="20dp"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/tododiary_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+        </ScrollView>
+        <TextView
+            android:id="@+id/txt_meal_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="그리고 오늘 ~~를 먹었다 "
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/txt_mooddiary_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오늘을 요약하면 "
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/txt_mood_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5점 만점에 ~점! "
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/txt_diary_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="한줄일기~~~"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="내일도 화이팅!!"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/tasklayout"

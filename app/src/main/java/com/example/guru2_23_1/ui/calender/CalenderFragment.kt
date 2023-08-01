@@ -1,8 +1,8 @@
 package com.example.guru2_23_1.ui.calender
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -11,14 +11,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.GridLayout
-import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.guru2_23_1.R
 import com.example.guru2_23_1.ui.DB.DBCALENDAR
+import com.example.guru2_23_1.ui.DB.DBDiary
+import com.example.guru2_23_1.ui.DB.DBMeal
+import com.example.guru2_23_1.ui.DB.DBMember
+import com.example.guru2_23_1.ui.DB.DBWEATHER
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -104,6 +106,9 @@ class CalenderFragment : Fragment() {
             dynamicTextView.text = "${currentYear}.${currentMonth}.${todayCalendar.get(Calendar.DAY_OF_MONTH)}"
             // Clear the calendar container
             calendarContainer.removeAllViews()
+
+            //작성된 하루일기 보이게 하기
+
 
             // Clear the schedule list
             val scheduleListLayout = view?.findViewById<LinearLayout>(R.id.schedule_list)
@@ -626,6 +631,41 @@ class CalenderFragment : Fragment() {
             Calendar.SUNDAY -> ContextCompat.getColor(requireContext(), R.color.red)
             else -> ContextCompat.getColor(requireContext(), R.color.black)
         }
+    }
+
+    private fun writedaydiary():String{
+        lateinit var dbManager_DBMeal: DBMeal
+        lateinit var dbManager_DBMember: DBMember
+        lateinit var dbManager_DBWEATHER: DBWEATHER
+        lateinit var dbManager_DBDiary: DBDiary
+        lateinit var dbManager_DBCalendar: DBCALENDAR
+        lateinit var sqlDB_DBMeal: SQLiteDatabase
+        lateinit var sqlDB_DBMember: SQLiteDatabase
+        lateinit var sqlDB_DBWEATHER: SQLiteDatabase
+        lateinit var sqlDB_DBDiary: SQLiteDatabase
+        lateinit var sqlDB_DBCalendar: SQLiteDatabase
+
+        lateinit var name: String
+        lateinit var weather: String
+        //이것들을 리스트로 출력하는게 맞나,,?
+//        lateinit var todo_list : List<todo>
+//        lateinit var schedule_list: List<Schedule>
+//        lateinit var meal_list: List<meal>
+        var mood: Float =0F
+        lateinit var diary: String
+
+        dbManager_DBMeal = DBMeal(this, "DBMeal", null, 1)
+        dbManager_DBDiary = DBDiary(this, "DBDiary", null, 1)
+        dbManager_DBCalendar = DBCALENDAR(requireContext())
+        dbManager_DBMember = DBMember(this, "DBMember", null, 1)
+        dbManager_DBWEATHER = DBWEATHER(this, "DBWEATHER", null, 1)
+
+        sqlDB_DBMeal = dbManager_DBMeal.readableDatabase
+        sqlDB_DBDiary = dbManager_DBDiary.readableDatabase
+        sqlDB_DBCalendar = dbManager_DBCalendar.readableDatabase
+        sqlDB_DBMember = dbManager_DBMember.readableDatabase
+        sqlDB_DBWEATHER = dbManager_DBWEATHER.readableDatabase
+
     }
 
     companion object {

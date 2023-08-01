@@ -2,7 +2,6 @@ package com.example.guru2_23_1.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.guru2_23_1.databinding.ActivityLoginBinding

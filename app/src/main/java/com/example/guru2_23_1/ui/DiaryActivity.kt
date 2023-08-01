@@ -13,9 +13,6 @@ import androidx.annotation.RequiresApi
 import com.example.guru2_23_1.R
 import com.example.guru2_23_1.ui.DB.DBDiary
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Date
 
 @RequiresApi(Build.VERSION_CODES.O)
 class DiaryActivity : AppCompatActivity() {
