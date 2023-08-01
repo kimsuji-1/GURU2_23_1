@@ -59,6 +59,7 @@ class CalenderFragment : Fragment() {
         checkButton = view.findViewById(R.id.check_btn)
         updateButton = view.findViewById(R.id.update_btn)
         scheduleListLayout = view.findViewById(R.id.schedule_list)
+        //하루일기 작성 변수
         today_diary = view.findViewById(R.id.today_diary)
         txt_Name_today = view.findViewById(R.id.txt_Name_today)
         txt_Weather_today = view.findViewById(R.id.txt_Weather_today)
