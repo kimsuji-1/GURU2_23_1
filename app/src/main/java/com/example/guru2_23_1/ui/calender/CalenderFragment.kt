@@ -55,6 +55,9 @@ class CalenderFragment : Fragment() {
         val prevMonthButton = view.findViewById<Button>(R.id.prevMonthButton)
         val nextMonthButton = view.findViewById<Button>(R.id.nextMonthButton)
         val headerTextView = view?.findViewById<TextView>(R.id.headerTextView)
+        val scheduleListLayout = view?.findViewById<LinearLayout>(R.id.schedule_list)
+        val todoLayout = view?.findViewById<LinearLayout>(R.id.todo_layout)
+        val todoListLayout = view?.findViewById<LinearLayout>(R.id.todo_list)
 
         //Hide the headerTextView initially (when there are no schedule items)
         headerTextView?.visibility = View.GONE
@@ -141,7 +144,7 @@ class CalenderFragment : Fragment() {
         }
 
         plusButton.setOnClickListener {
-            showContentForDate(selectedDate)
+            showAddEventDialog()
         }
 
 
@@ -261,14 +264,64 @@ class CalenderFragment : Fragment() {
 
             calendarContainer.addView(dayTextView)
             val params = dayTextView.layoutParams as GridLayout.LayoutParams
-            params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f) // 각 날짜를 표시하는 줄 간격을 조정
+            params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f) // Add an extra row between each row of days
             params.columnSpec = GridLayout.spec(dayOfWeek, 1f)
-
             dayTextView.layoutParams = params
 
             // 요일 증가 및 다음 날짜로 이동
             dayOfWeek = (dayOfWeek + 1) % 7
         }
+    }
+
+    private fun showAddEventDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_event, null)
+        val typeRadioGroup = dialogView.findViewById<RadioGroup>(R.id.typeRadioGroup)
+        val contentEditText = dialogView.findViewById<EditText>(R.id.contentEditText)
+
+        // Create an AlertDialog
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setView(dialogView)
+        builder.setTitle("Schedule or ToDo 추가")
+        builder.setPositiveButton("추가") { _, _ ->
+            // Get the selected type (Schedule or ToDo)
+            val selectedType = when (typeRadioGroup.checkedRadioButtonId) {
+                R.id.scheduleRadioButton -> "Schedule"
+                else -> "ToDo"
+            }
+
+            // Get the event content from the EditText
+            val content = contentEditText.text.toString().trim()
+
+            // Add the event to the database
+            addEventToDatabaseInHomeFragment(selectedDate, selectedType, content)
+
+            // Show the content for the selected date (including the added event)
+            showContentForDate(selectedDate)
+        }
+        builder.setNegativeButton("취소") { dialog, _ -> dialog.cancel() }
+        builder.create().show()
+    }
+
+    // Function to add the event to the database
+    private fun addEventToDatabaseInHomeFragment(selectedDate: Calendar, type: String, content: String) {
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+        val selectedDateString = dateFormat.format(selectedDate.time)
+
+        // DBHelper를 사용하여 데이터베이스에 해당 날짜의 일정 또는 투두를 추가
+        val dbHelper = DBCALENDAR(requireContext())
+        dbHelper.addEventToDatabase(selectedDateString, type, content)
+    }
+
+    private fun hasEventForDate(calendar: Calendar): Boolean {
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+        val dateString = dateFormat.format(calendar.time)
+
+        // DBHelper를 사용하여 해당 날짜의 이벤트를 가져옴
+        val dbHelper = DBCALENDAR(requireContext())
+        val eventList = dbHelper.getEventsForDate(dateString)
+
+        // Check if there are any events for the given date
+        return eventList.any { it.startsWith("Schedule:") }
     }
 
     private fun showDatePickerDialog() {
